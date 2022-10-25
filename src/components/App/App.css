@@ -1,0 +1,13 @@
+.app {
+  background-color: #fff;
+  min-width: 320px;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  color: #000;
+}
