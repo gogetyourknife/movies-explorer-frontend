@@ -1,0 +1,9 @@
+.hamburger {
+    display: none;
+}
+
+@media (max-width: 769px) {
+    .hamburger {
+        display: flex;
+    }
+}

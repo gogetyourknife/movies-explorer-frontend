@@ -1,0 +1,35 @@
+.navtab {
+    display: grid;
+    grid-template-columns: repeat(3, 96px);
+    gap: 10px;
+    justify-content: center;
+    margin: 0;
+    margin-top: 151px;
+    padding: 0;
+    list-style: none;
+}
+
+.navtab__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 36px;
+    background: #E8E8E8;
+    border-radius: 10px;
+    margin: 0;
+}
+
+.navtab__link {
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.navtab__link:hover {
+    opacity: .7;
+}

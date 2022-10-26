@@ -1,4 +1,5 @@
 import React from 'react';
+import './Hamburger.css'
 import { useMediaQuery } from 'react-responsive';
 
 function Hamburger(isNavOpened, onClickHamburger) {
@@ -17,7 +18,7 @@ function Hamburger(isNavOpened, onClickHamburger) {
     return (
         <button
             type='button'
-            className={`hamburger__button hamburger__button_${isNavOpened ? 'on' : 'off'}`}
+            className={`hamburger hamburger_${isNavOpened ? 'on' : 'off'}`}
             onClick={handleClickOnHamburger}>
 
         </button>
