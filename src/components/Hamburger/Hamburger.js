@@ -2,10 +2,10 @@ import React from 'react';
 import './Hamburger.css'
 import { useMediaQuery } from 'react-responsive';
 
-function Hamburger(isNavOpened, onClickHamburger) {
+function Hamburger({ isNavOpened, onClickHamburger }) {
     const isMobile = useMediaQuery({ query: `max-width: 769px` });
 
-    function handleClickOnHamburger(onClickHamburger) {
+    function handleClickOnHamburger() {
         onClickHamburger();
     };
 

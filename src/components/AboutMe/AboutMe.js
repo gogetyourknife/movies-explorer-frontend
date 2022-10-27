@@ -5,9 +5,7 @@ function AboutMe() {
     return (
         <section id='aboutme' className='aboutme'>
             <div className='aboutme__wrapper'>
-                <h2 className='aboutme__title'>Студент</h2>
-                <div className='aboutme__line'></div>
-                <div className='aboutme__info-wrapper'>
+                <h2 className='aboutme__title'>Студент</h2>                <div className='aboutme__info-wrapper'>
                     <div className='aboutme__info'>
                         <h3 className='aboutme__name'>Луна</h3>
                         <p className='aboutme__job'>Фронтенд-разработчица</p>

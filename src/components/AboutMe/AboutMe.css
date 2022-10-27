@@ -21,15 +21,10 @@
     line-height: 27px;
     letter-spacing: -0.04em;
     color: #000000;
-}
-
-.aboutme__line {
-    width: 1140px;
-    height: 1px;
-    background: #000000;
-    display: block;
-    margin: 15px 0 74px;
-    padding: 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid #000000;
+    padding-bottom: 15px;
+    margin-bottom: 74px;
 }
 
 .aboutme__info-wrapper {

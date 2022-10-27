@@ -1,5 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
 import Hamburger from '../Hamburger/Hamburger';
+import './Navigation.css'
 
 function Navigation({ loggedIn, isNavOpened, onClickHamburger }) {
 
@@ -12,11 +13,11 @@ function Navigation({ loggedIn, isNavOpened, onClickHamburger }) {
         <>
             {!loggedIn ? (
                 <nav className='navigation'>
-                    <ul>
+                    <ul className='navigation__list'>
                         <li className='navigation__item'>
                             <Link to='/signup' className='navigation__link navigation__link_signup'>Регистрация</Link>
                         </li>
-                        <li className='navigation__item'>
+                        <li className='navigation__item navigation__item_signin'>
                             <Link to='/signin' className='navigation__link navigation__link_signin'>Войти</Link>
                         </li>
                     </ul>
@@ -46,4 +47,4 @@ function Navigation({ loggedIn, isNavOpened, onClickHamburger }) {
     );
 }
 
-// export default Navigation;
+export default Navigation;

@@ -5,7 +5,6 @@ function AboutProject() {
         <section id='aboutproject' className='aboutproject'>
             <div className='aboutproject__wrapper'>
                 <h2 className='aboutproject__title'>О проекте</h2>
-                <div className='aboutproject__line'></div>
                 <ul className='aboutproject__list'>
                     <li className='aboutproject__list-item'>
                         <h3 className='aboutproject__list-item_subtitle'>Дипломный проект включал 5 этапов</h3>

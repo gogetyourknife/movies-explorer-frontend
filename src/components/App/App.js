@@ -1,34 +1,28 @@
 import './App.css';
 
+import { useState } from 'react';
+
 import Header from '../Header/Header';
-// import Navigation from '../Navigation/Navigation';
 import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 function App() {
 
-  // const [isNavOpened, setIsNavOpened] = React.useState(false);
-  // const [loggedIn, setLoggedIn] = React.useState(false);
+  const loggedIn = true;
+  const [isHamburgerOpened, setIsHamburgerOpened] = useState(false);
 
-
-  /*   function onClickHamburger() {
-      setIsNavOpened(!isNavOpened);
-    }
-   */
-  /*   function handleCloseOnOverlay(e) {
-      e.stopPropagation();
-    } */
-
+  function onClickHamBurger() {
+    setIsHamburgerOpened(!isHamburgerOpened);
+  }
   return (
     <div className="app">
       <Header
-      /*         loggedIn={loggedIn}
-              onClickHamburger={onClickHamburger}
-              isNavOpened={isNavOpened} */
+        loggedIn={loggedIn}
+        onClickHamBurger={onClickHamBurger}
+        isHamburgerOpened={isHamburgerOpened}
       />
-      {/*       <Navigation
-      /> */}
-      <Main
-      />
+      <Main />
+      <Footer />
     </div>
   );
 }

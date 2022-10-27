@@ -14,6 +14,13 @@
     cursor: pointer;
 }
 
+.header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+}
+
 .header__logo:hover {
     opacity: 0.85;
 }
