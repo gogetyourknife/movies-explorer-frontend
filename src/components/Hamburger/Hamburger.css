@@ -1,6 +1,27 @@
 .hamburger {
     display: none;
+    background-image: url('../../images/navigation/hamburger.svg');
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 44px;
+    height: 44px;
+    border: none;
+    cursor: pointer;
 }
+
+.hamburger_off {
+    background-image: url('../../images/navigation/hamburger.svg');
+}
+
+.hamburger:hover {
+    opacity: 0.;
+}
+
+.hamburger_on {
+    background-image: url('../../images/navigation/close.svg');
+}
+
 
 @media (max-width: 769px) {
     .hamburger {

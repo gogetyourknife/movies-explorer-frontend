@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import logo from '../../images/header/logo.svg';
 import Navigation from '../Navigation/Navigation';
 
-function Header({ loggedIn, onClickHamburger, isNavOpened }) {
+function Header({ loggedIn, onClickHamburger, isNavigationOpened }) {
 
     return (
         <header className='header'>
@@ -15,7 +15,7 @@ function Header({ loggedIn, onClickHamburger, isNavOpened }) {
                 <Navigation
                     loggedIn={loggedIn}
                     onClickHamburger={onClickHamburger}
-                    isNavOpened={isNavOpened}
+                    isNavigationOpened={isNavigationOpened}
                 />
             </div>
         </header>

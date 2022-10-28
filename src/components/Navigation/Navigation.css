@@ -56,3 +56,39 @@
     align-items: center;
     color: #FFFFFF;
 }
+
+.navigation_opened {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .3);
+    justify-content: flex-end;
+    transition: all .3s ease;
+    z-index: 3;
+}
+
+.navigation_closed {
+    position: static;
+}
+
+.navigaion__list_opened {
+    right: 0;
+    visibility: visible;
+}
+
+.navigaion__list_closed {
+    right: -100%;
+    visibility: hidden;
+}
+
+.navigation__link_active {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #000000;
+    border-bottom: 1px solid #000000;
+}

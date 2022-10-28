@@ -1,28 +1,28 @@
-import React from 'react';
-import './Hamburger.css'
+import './Hamburger.css';
 import { useMediaQuery } from 'react-responsive';
+import React from 'react';
 
-function Hamburger({ isNavOpened, onClickHamburger }) {
-    const isMobile = useMediaQuery({ query: `max-width: 769px` });
+function Hamburger({ isNavigationOpened, onClickHamburger }) {
 
-    function handleClickOnHamburger() {
-        onClickHamburger();
-    };
+    const isMobile = useMediaQuery({ query: `(max-width: 769px)` });
+
+    const handleOnClickBurger = () => {
+        onClickHamburger(isNavigationOpened);
+    }
 
     React.useEffect(() => {
-        if (!isMobile && isNavOpened) {
-            onClickHamburger();
+        if (!isMobile && isNavigationOpened) {
+            onClickHamburger(true);
         }
-    }, [isNavOpened, isMobile, onClickHamburger]);
+    }, [isMobile, isNavigationOpened, onClickHamburger]);
 
     return (
         <button
             type='button'
-            className={`hamburger hamburger_${isNavOpened ? 'on' : 'off'}`}
-            onClick={handleClickOnHamburger}>
-
+            className={`hamburger hamburger_${isNavigationOpened ? 'on' : 'off'}`}
+            onClick={handleOnClickBurger}>
         </button>
-    );
+    )
 }
 
 export default Hamburger;
