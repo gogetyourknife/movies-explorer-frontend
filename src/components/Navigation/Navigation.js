@@ -25,15 +25,17 @@ function Navigation({ loggedIn, isNavigationOpened, onClickHamburger }) {
                     </ul>
                 </nav>
             ) : !isMobile ? (
-                <ul className='navigation__list'>
-                    <li className='navigation__item'>
-                        <NavLink exact to='/movies' className='navigation__link' activeClassName={'navigation__link_active'}>Фильмы</NavLink>
-                    </li>
-                    <li className='navigation__item'>
-                        <NavLink exact to='/saved-movies' className='navigation__link' activeClassName={'navigation__link_active'}>Сохранённые фильмы</NavLink>
-                    </li>
+                <ul className='navigation__list navigation__list-films'>
+                    <div className='navigation__wrapper-films'>
+                        <li className='navigation__item'>
+                            <NavLink exact to='/movies' className='navigation__link' activeClassName={'navigation__link_active'}>Фильмы</NavLink>
+                        </li>
+                        <li className='navigation__item'>
+                            <NavLink exact to='/saved-movies' className='navigation__link' activeClassName={'navigation__link_active'}>Сохранённые фильмы</NavLink>
+                        </li>
+                    </div>
                     <li className='navigation__item navigation__item_account'>
-                        <NavLink exact to='/profile' className='navigation__link' activeClassName={'navigation__link_active'}>Аккаунт</NavLink>
+                        <NavLink exact to='/profile' className='navigation__link navigation__link_account' activeClassName={'navigation__link_active'}>Аккаунт</NavLink>
                     </li>
                 </ul>
             ) : (

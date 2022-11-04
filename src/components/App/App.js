@@ -8,6 +8,7 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
 
   const loggedIn = true;
   const [isNavigationOpened, setIsNavigationOpened] = useState(false);
-  const [movies, setMovies] = useState([]);
+  const [movies] = useState([]);
   // const [savedMovies, setSavedMovies] = useState([]);
 
   function handleGoBack() {
@@ -58,6 +59,14 @@ function App() {
           <SavedMovies
             movies={movies} />
           <Footer />
+        </Route>
+
+        <Route exact path='/profile'>
+          <Header
+            loggedIn={loggedIn}
+            onClickHamburger={onClickHamburger}
+            isNavigationOpened={isNavigationOpened} />
+          <Profile />
         </Route>
 
         <Route path='*'>

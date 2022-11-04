@@ -8,7 +8,7 @@ function Footer() {
                 <div className='footer__info-wrapper'>
                     <p className='footer__date'>&copy; {new Date().getFullYear()}</p>
                     <div className='footer__links'>
-                        <a className='footer__link' target='_blank' rel='noreferrer' href='https://github.com/gogetyourknife/react-mesto-api-full'>Яндекс.Практикум</a>
+                        <a className='footer__link' target='_blank' rel='noreferrer' href='https://practicum.yandex.ru/'>Яндекс.Практикум</a>
                         <a className='footer__link' target='_blank' rel='noreferrer' href='https://github.com/gogetyourknife'>Github</a>
                     </div>
                 </div>

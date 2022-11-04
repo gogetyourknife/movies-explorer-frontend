@@ -15,6 +15,10 @@
     align-items: center;
 }
 
+.navigation__list-films {
+    gap: 746px;
+}
+
 .navigation__item:hover {
     opacity: 0.7;
 }
@@ -25,13 +29,41 @@
     text-decoration: none;
     cursor: pointer;
     font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    display: flex;
-    align-items: center;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
     text-align: right;
     color: #000000;
+}
+
+.navigation__link_active {
+    font-weight: 500;
+}
+
+.navigation__item_account {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    background-color: #F9F9F9;
+    border-radius: 20px;
+    box-sizing: border-box;
+    font-style: normal;
+}
+
+.navigation__link_account {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000000;
+    padding: 8px 20px;
+}
+
+.navigation__wrapper-films {
+    display: flex;
+    gap: 16px;
 }
 
 .navigation__item_signin {
@@ -81,14 +113,4 @@
 .navigaion__list_closed {
     right: -100%;
     visibility: hidden;
-}
-
-.navigation__link_active {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
-    text-align: center;
-    color: #000000;
-    border-bottom: 1px solid #000000;
 }
