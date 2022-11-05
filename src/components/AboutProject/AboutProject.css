@@ -114,3 +114,29 @@
     text-align: center;
     color: #000000;
 }
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .aboutproject__wrapper {
+        padding: 90px 50px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .aboutproject__list {
+        gap: 30px;
+        margin-bottom: 93px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .aboutproject__list-item_subtitle {
+        margin-bottom: 22px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .aboutproject__list-item_descr {
+        font-size: 12px;
+        line-height: 18px;
+    }
+}

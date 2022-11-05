@@ -16,7 +16,7 @@ import Register from '../Register/Register'
 function App() {
   const history = useHistory();
 
-  const loggedIn = false;
+  const loggedIn = true;
   const [isNavigationOpened, setIsNavigationOpened] = useState(false);
   const [movies] = useState([]);
   // const [savedMovies, setSavedMovies] = useState([]);
@@ -30,7 +30,7 @@ function App() {
   }
 
   return (
-    <div className="app">
+    <div className='app'>
       <Switch>
 
         <Route exact path='/'>

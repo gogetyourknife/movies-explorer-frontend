@@ -33,3 +33,9 @@
 .navtab__link:hover {
     opacity: .7;
 }
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .navtab {
+        margin-top: 314px;
+    }
+}

@@ -20,6 +20,11 @@
 
 .hamburger_on {
     background-image: url('../../images/navigation/close.svg');
+    position: absolute;
+    right: 0;
+    margin-top: 23px;
+    margin-right: 23px;
+    padding: 0;
 }
 
 

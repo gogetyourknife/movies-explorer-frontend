@@ -11,3 +11,8 @@
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
+
+.app__closed {
+  z-index: 2;
+  background: #123;
+}

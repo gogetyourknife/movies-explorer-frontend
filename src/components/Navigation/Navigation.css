@@ -90,15 +90,17 @@
 }
 
 .navigation_opened {
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
+    right: 0;
+    width: 50vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, .3);
-    justify-content: flex-end;
+    background: #FFFFFF;
     transition: all .3s ease;
     z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .navigation_closed {
@@ -106,11 +108,47 @@
 }
 
 .navigaion__list_opened {
-    right: 0;
-    visibility: visible;
+    flex-direction: column;
 }
 
 .navigaion__list_closed {
     right: -100%;
-    visibility: hidden;
+    display: none;
+}
+
+.navigation__list_logged-in {
+    padding-top: 159px;
+    gap: 28px;
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .navigation__link_signup {
+        font-size: 12px;
+        line-height: 16px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .navigation__item_account {
+        bottom: 0;
+        position: absolute;
+        margin-bottom: 90px;
+        padding: 8px 20px;
+        box-sizing: border-box;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .navigation__link {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .navigation__link_active {
+        border-bottom: 1px solid #000;
+        padding-bottom: 4px;
+    }
 }

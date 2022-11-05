@@ -76,3 +76,21 @@
     background-repeat: no-repeat;
     background-size: contain;
 }
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .portfolio__wrapper {
+        padding: 0 50px 90px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .portfolio__link {
+        font-size: 28px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .portfolio__link::after {
+        width: 27px;
+    }
+}

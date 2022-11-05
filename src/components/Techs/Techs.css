@@ -7,7 +7,7 @@
     background: #F5F5F5;
 }
 
-.teacs_wrapper {
+.tecs__wrapper {
     padding: 110px 70px;
     max-width: 1280px;
     box-sizing: border-box;
@@ -90,4 +90,44 @@
     text-align: center;
     letter-spacing: -0.04em;
     color: #000000;
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .tecs__wrapper {
+        padding: 90px 50px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .techs__title {
+        margin-bottom: 80px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .techs__subtitle {
+        margin-bottom: 22px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .techs__descr {
+        font-size: 12px;
+        line-height: 18px;
+        margin-bottom: 83px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .techs__item {
+        width: 84px;
+        height: 57px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .techs__stack-item {
+        font-size: 12px;
+        line-height: 15px;
+    }
 }
