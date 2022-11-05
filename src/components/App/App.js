@@ -10,11 +10,13 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
+import Login from '../Login/Login'
+import Register from '../Register/Register'
 
 function App() {
   const history = useHistory();
 
-  const loggedIn = true;
+  const loggedIn = false;
   const [isNavigationOpened, setIsNavigationOpened] = useState(false);
   const [movies] = useState([]);
   // const [savedMovies, setSavedMovies] = useState([]);
@@ -67,6 +69,14 @@ function App() {
             onClickHamburger={onClickHamburger}
             isNavigationOpened={isNavigationOpened} />
           <Profile />
+        </Route>
+
+        <Route exact path='/signin'>
+          <Login />
+        </Route>
+
+        <Route exact path='/signup'>
+          <Register />
         </Route>
 
         <Route path='*'>
