@@ -38,4 +38,40 @@
     .navtab {
         margin-top: 314px;
     }
+
+}
+
+@media (max-width: 320px) {
+    .navtab {
+        margin-top: 212px;
+        gap: 6px;
+        grid-template-columns: repeat(3, 82px);
+    }
+
+    .navtab__wrapper {
+        width: 82px;
+        height: 26px;
+        border-radius: 6px;
+    }
+
+    .navtab__link {
+        font-size: 10px;
+        line-height: 16px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 740px) {
+    .navtab {
+        margin-top: 40%;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 400px) {
+    .navtab {
+        grid-template-columns: repeat(3, 85px);
+    }
+
+    .navtab__wrapper {
+        width: 85px;
+    }
 }

@@ -10,7 +10,7 @@ function Register() {
                 <Link to='/'>
                     <img className='register__logo' src={logo} alt='Логотип' />
                 </Link>
-                <h2 className='register__header'>Добро пожаловать!</h2>
+                <h2 className='register__title'>Добро пожаловать!</h2>
                 <div className='register__laber-wrapper'>
                     <label className='register__label register__label-name'>
                         <span className='register__label-title'>Имя</span>
@@ -57,9 +57,11 @@ function Register() {
                             Уже зарегистрированы?
                         </p>
                         <button
-                            type='submit'
+                            type='button'
                             className='register__button register__button_login'>
-                            Войти
+                            <Link to='signin' className='register__link'>
+                                Войти
+                            </Link>
                         </button>
                     </div>
                 </div>

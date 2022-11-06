@@ -16,7 +16,8 @@
 }
 
 .navigation__list-films {
-    gap: 746px;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .navigation__item:hover {
@@ -64,6 +65,7 @@
 .navigation__wrapper-films {
     display: flex;
     gap: 16px;
+    padding-left: 44px;
 }
 
 .navigation__item_signin {
@@ -77,7 +79,8 @@
     cursor: pointer;
 }
 
-.navigation__link_signin {
+.navigation__link_main {
+    text-decoration: none;
     margin: 0;
     padding: 0;
     font-style: normal;
@@ -86,7 +89,14 @@
     line-height: 16px;
     display: flex;
     align-items: center;
+}
+
+.navigation__link_signin {
     color: #FFFFFF;
+}
+
+.navigation__link_signup {
+    color: #000;
 }
 
 .navigation_opened {
@@ -121,14 +131,18 @@
     gap: 28px;
 }
 
-@media (min-width: 321px) and (max-width: 768px) {
-    .navigation__link_signup {
-        font-size: 12px;
-        line-height: 16px;
+@media (max-width: 768px) {
+    .navigation__link_active {
+        border-bottom: 1px solid #000;
+        padding-bottom: 4px;
     }
-}
 
-@media (min-width: 321px) and (max-width: 768px) {
+    .navigation__link {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
     .navigation__item_account {
         bottom: 0;
         position: absolute;
@@ -138,17 +152,44 @@
     }
 }
 
-@media (min-width: 321px) and (max-width: 768px) {
+@media (min-width: 321px) and (max-width: 425px) {
     .navigation__link {
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 22px;
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .navigation_opened {
+        width: 70vw;
     }
 }
 
-@media (min-width: 321px) and (max-width: 768px) {
-    .navigation__link_active {
-        border-bottom: 1px solid #000;
-        padding-bottom: 4px;
+@media (max-width: 320px) {
+    .navigation_opened {
+        width: 100vw;
     }
+
+    .navigation__list_logged-in {
+        padding-top: 144px;
+        gap: 24px;
+    }
+
+    .navigation__list {
+        gap: 14px;
+    }
+
+    .navigation__item_account {
+        margin-bottom: 46px;
+    }
+
+    .navigation__item_signin {
+        width: 54px;
+        height: 26px;
+        padding: 5px 12px;
+    }
+
+    .navigation__link_main {
+        font-size: 10px;
+        line-height: 16px;
+    }
+
 }

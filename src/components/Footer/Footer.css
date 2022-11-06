@@ -69,3 +69,43 @@
         padding-right: 30px;
     }
 }
+
+@media (max-width: 320px) {
+    .footer__wrapper {
+        padding: 79px 10px 45px;
+    }
+
+    .footer__title {
+        padding-bottom: 21px;
+        margin-bottom: 30px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .footer__links {
+        grid-area: links;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .footer__date {
+        grid-area: date;
+        color: #A0A0A0;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .footer__link {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .footer__info-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        grid-template-areas: 'links' 'date';
+        gap: 30px;
+    }
+}

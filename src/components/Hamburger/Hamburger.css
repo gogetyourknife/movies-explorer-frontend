@@ -27,9 +27,20 @@
     padding: 0;
 }
 
-
 @media (max-width: 769px) {
     .hamburger {
         display: flex;
+    }
+}
+
+@media (max-width: 320px) {
+    .hamburger {
+        width: 40px;
+        height: 43px;
+    }
+
+    .hamburger_on {
+        margin-top: 13.5px;
+        margin-right: 13.5px;
     }
 }

@@ -10,7 +10,7 @@ function Login() {
                 <Link to='/'>
                     <img className='login__logo' src={logo} alt='Логотип' />
                 </Link>
-                <h2 className='login__header'>Рады видеть!</h2>
+                <h2 className='login__title'>Рады видеть!</h2>
                 <div className='login__laber-wrapper'>
                     <label className='login__label login__label-email'>
                         <span className='login__label-title'>E-mail</span>
@@ -46,9 +46,11 @@ function Login() {
                             Ещё не зарегистрированы?
                         </p>
                         <button
-                            type='submit'
+                            type='button'
                             className='login__button login__button_reg'>
-                            Регистрация
+                            <Link to='signup' className='login__link'>
+                                Регистрация
+                            </Link>
                         </button>
                     </div>
                 </div>

@@ -43,7 +43,7 @@
 .profile__label {
     margin: 0;
     padding: 0;
-    padding-bottom: 16px;
+    padding-bottom: 15px;
     border-bottom: 1px solid #E8E8E8;
     font-style: normal;
     font-weight: 400;
@@ -121,4 +121,41 @@
     line-height: 12px;
     color: #FF4062;
     padding-top: 6px;
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .profile__form {
+        padding-top: 236px;
+    }
+
+    .profile__button-wrapper {
+        padding-bottom: 269px;
+    }
+}
+
+@media (max-width: 490px) {
+    .profile__form {
+        padding-top: 70px;
+    }
+
+    .profile__title {
+        padding-bottom: 80px;
+    }
+
+    .profile__laber-wrapper {
+        max-width: 260px;
+        min-width: 0;
+    }
+
+    .profile__input {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .profile__button-wrapper {
+        position: relative;
+        padding-top: 379px;
+        padding-bottom: 40px;
+    }
+
 }

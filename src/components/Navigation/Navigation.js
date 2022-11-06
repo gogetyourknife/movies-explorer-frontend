@@ -17,10 +17,10 @@ function Navigation({ loggedIn, isNavigationOpened, onClickHamburger }) {
                 <nav className='navigation'>
                     <ul className='navigation__list'>
                         <li className='navigation__item'>
-                            <Link to='/signup' className='navigation__link navigation__link_main navigation__link_signup'>Регистрация</Link>
+                            <Link to='/signup' className='navigation__link_main navigation__link_signup'>Регистрация</Link>
                         </li>
                         <li className='navigation__item navigation__item_signin'>
-                            <Link to='/signin' className='navigation__link navigation__link_main navigation__link_signin'>Войти</Link>
+                            <Link to='/signin' className='navigation__link_main navigation__link_signin'>Войти</Link>
                         </li>
                     </ul>
                 </nav>

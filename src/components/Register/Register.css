@@ -18,7 +18,7 @@
     margin-bottom: 70px;
 }
 
-.register__header {
+.register__title {
     font-style: normal;
     font-weight: 500;
     font-size: 24px;
@@ -96,6 +96,8 @@
     padding: 13px 0 15px;
     text-align: center;
     cursor: pointer;
+    margin: 0;
+    border: none;
 }
 
 .register__button_singin:hover {
@@ -149,6 +151,112 @@
     margin: 0;
 }
 
+.register__link {
+    text-decoration: none;
+    color: #000000;
+}
+
 .register__button_login:hover {
     opacity: 0.85;
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .register {
+        padding-top: 232px;
+        padding-bottom: 0;
+    }
+
+    .register__button-wrapper {
+        position: relative;
+        padding-top: 134px;
+        padding-bottom: 0;
+    }
+
+    .register__logo {
+        margin-bottom: 40px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 475px) {
+
+    .register__form,
+    .register__button-wrapper {
+        width: calc(100% - 60px);
+    }
+
+    .register__button_singin {
+        width: calc(100% - 20px);
+    }
+
+    .register__form {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .register__text,
+    .register__link,
+    .register__button_login {
+        font-size: 13px;
+        line-height: 16px;
+    }
+
+    .register__title {
+        font-size: 23px;
+    }
+}
+
+@media (max-width: 320px) {
+
+    .register {
+        padding-bottom: 0;
+    }
+
+    .register__form {
+        padding-top: 56px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .register__logo {
+        margin-bottom: 50px;
+    }
+
+    .register__title {
+        margin-bottom: 80px;
+    }
+
+    .register__input {
+        padding-bottom: 10px;
+    }
+
+    .register__laber-wrapper {
+        width: calc(100% - 60px);
+    }
+
+    .register__button-wrapper {
+        position: relative;
+        gap: 14px;
+        padding-top: 198px;
+        padding-bottom: 30px;
+    }
+
+    .register__button_singin {
+        width: 260px;
+    }
+
+    .register__text,
+    .register__link,
+    .register__button_login {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .register__reg-wrapper {
+        align-items: center;
+        justify-items: center;
+    }
+
+    .register__text {
+        padding-right: 7px;
+    }
 }

@@ -20,3 +20,12 @@
     margin-left: 14px;
     padding-right: 30px;
 }
+
+@media (max-width: 320px) {
+    .filter__title {
+        font-size: 11px;
+        line-height: 18px;
+        margin-left: 13px;
+        padding-right: 0px;
+    }
+}

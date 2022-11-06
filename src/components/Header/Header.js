@@ -9,7 +9,7 @@ function Header({ loggedIn, onClickHamburger, isNavigationOpened }) {
     return (
         <header className='header'>
             <div className='header__wrapper'>
-                <Link to='/'>
+                <Link to='/' className='header__link'>
                     <img className='header__logo' src={logo} alt='Логотип' />
                 </Link>
                 <Navigation
