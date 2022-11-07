@@ -1,5 +1,5 @@
 import './MoviesCardList.css'
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
@@ -8,8 +8,8 @@ function MoviesCardList({ movies }) {
     const location = useLocation();
 
     function useWindowSize() {
-        const [width, setWidth] = React.useState(window.screen.width);
-        React.useEffect(() => {
+        const [width, setWidth] = useState(window.screen.width);
+        useEffect(() => {
             const handleResize = () => {
                 setWidth(window.screen.width)
             }

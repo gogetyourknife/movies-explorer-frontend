@@ -130,6 +130,8 @@
 
     .profile__button-wrapper {
         padding-bottom: 269px;
+        padding-top: 210px;
+        position: relative;
     }
 }
 
@@ -157,5 +159,4 @@
         padding-top: 379px;
         padding-bottom: 40px;
     }
-
 }

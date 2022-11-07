@@ -9,7 +9,7 @@
     list-style: none;
 }
 
-.navtab__wrapper {
+.navtab__item {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,7 +48,7 @@
         grid-template-columns: repeat(3, 82px);
     }
 
-    .navtab__wrapper {
+    .navtab__item {
         width: 82px;
         height: 26px;
         border-radius: 6px;
@@ -60,18 +60,18 @@
     }
 }
 
-@media (min-width: 321px) and (max-width: 740px) {
-    .navtab {
-        margin-top: 40%;
-    }
-}
-
 @media (min-width: 321px) and (max-width: 400px) {
     .navtab {
         grid-template-columns: repeat(3, 85px);
     }
 
-    .navtab__wrapper {
+    .navtab__item {
         width: 85px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 740px) {
+    .navtab {
+        margin-top: 40%;
     }
 }

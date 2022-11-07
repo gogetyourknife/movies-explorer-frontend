@@ -7,10 +7,6 @@ function Navigation({ loggedIn, isNavigationOpened, onClickHamburger }) {
 
     const isMobile = useMediaQuery({ query: `(max-width: 769px)` });
 
-    function handleCloseOnOverlay(e) {
-        e.stopPropagation();
-    }
-
     return (
         <>
             {!loggedIn ? (
@@ -42,9 +38,7 @@ function Navigation({ loggedIn, isNavigationOpened, onClickHamburger }) {
                 <div className='navigation'>
                     <Hamburger isNavigationOpened={isNavigationOpened} onClickHamburger={onClickHamburger} />
                     <nav className={`navigation_${isNavigationOpened ? 'opened' : 'closed'}`}>
-
-                        <ul className={`navigation__list navigation__list_logged-in navigaion__list_${isNavigationOpened ? 'opened' : 'closed'}`} onClick={handleCloseOnOverlay}>
-
+                        <ul className={`navigation__list navigation__list_logged-in navigaion__list_${isNavigationOpened ? 'opened' : 'closed'}`}>
                             {isNavigationOpened && (
                                 <li className='navigation__item'>
                                     <NavLink exact to='/' className='navigation__link' activeClassName={'navigation__link_active'}>Главная</NavLink>

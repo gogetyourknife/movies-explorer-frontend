@@ -1,7 +1,7 @@
 import './App.css';
 
 import { useState } from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -14,16 +14,10 @@ import Login from '../Login/Login'
 import Register from '../Register/Register'
 
 function App() {
-  const history = useHistory();
 
   const loggedIn = true;
   const [isNavigationOpened, setIsNavigationOpened] = useState(false);
   const [movies] = useState([]);
-  // const [savedMovies, setSavedMovies] = useState([]);
-
-  function handleGoBack() {
-    history.goBack();
-  };
 
   function onClickHamburger() {
     setIsNavigationOpened(!isNavigationOpened);
@@ -37,8 +31,7 @@ function App() {
           <Header
             loggedIn={loggedIn}
             onClickHamburger={onClickHamburger}
-            isNavigationOpened={isNavigationOpened}
-          />
+            isNavigationOpened={isNavigationOpened} />
           <Main />
           <Footer />
         </Route>
@@ -80,7 +73,7 @@ function App() {
         </Route>
 
         <Route path='*'>
-          <NotFound handleGoBack={handleGoBack} />
+          <NotFound />
         </Route>
 
       </Switch>

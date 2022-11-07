@@ -1,5 +1,4 @@
 import './Login.css';
-import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../images/header/logo.svg';
 
@@ -56,7 +55,6 @@ function Login() {
                 </div>
             </form>
         </main>
-
     )
 }
 

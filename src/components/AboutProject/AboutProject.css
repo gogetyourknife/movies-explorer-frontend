@@ -92,27 +92,31 @@
     text-align: center;
     color: #FFFFFF;
     padding: 9px 0;
-}
-
-.aboutproject__backend-title,
-.aboutproject__frontend-title {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: center;
-    color: #A0A0A0;
+    margin: 0;
 }
 
 .aboutproject__frontend-time {
     background: #F2F2F2;
-    padding: 9px 0;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
     text-align: center;
     color: #000000;
+    padding: 9px 0;
+    margin: 0;
+}
+
+.aboutproject__backend-title,
+.aboutproject__frontend-title {
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #A0A0A0;
 }
 
 @media (min-width: 321px) and (max-width: 768px) {
