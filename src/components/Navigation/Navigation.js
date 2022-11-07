@@ -39,26 +39,29 @@ function Navigation({ loggedIn, isNavigationOpened, onClickHamburger }) {
                     </li>
                 </ul>
             ) : (
-                <nav className={`navigation navigation_${isNavigationOpened ? 'opened' : 'closed'}`}>
+                <div className='navigation'>
                     <Hamburger isNavigationOpened={isNavigationOpened} onClickHamburger={onClickHamburger} />
-                    <ul className={`navigation__list navigation__list_logged-in navigaion__list_${isNavigationOpened ? 'opened' : 'closed'}`} onClick={handleCloseOnOverlay}>
+                    <nav className={`navigation_${isNavigationOpened ? 'opened' : 'closed'}`}>
 
-                        {isNavigationOpened && (
+                        <ul className={`navigation__list navigation__list_logged-in navigaion__list_${isNavigationOpened ? 'opened' : 'closed'}`} onClick={handleCloseOnOverlay}>
+
+                            {isNavigationOpened && (
+                                <li className='navigation__item'>
+                                    <NavLink exact to='/' className='navigation__link' activeClassName={'navigation__link_active'}>Главная</NavLink>
+                                </li>
+                            )}
                             <li className='navigation__item'>
-                                <NavLink exact to='/' className='navigation__link' activeClassName={'navigation__link_active'}>Главная</NavLink>
+                                <NavLink exact to='/movies' className='navigation__link' activeClassName={'navigation__link_active'}>Фильмы</NavLink>
                             </li>
-                        )}
-                        <li className='navigation__item'>
-                            <NavLink exact to='/movies' className='navigation__link' activeClassName={'navigation__link_active'}>Фильмы</NavLink>
-                        </li>
-                        <li className='navigation__item'>
-                            <NavLink exact to='/saved-movies' className='navigation__link' activeClassName={'navigation__link_active'}>Сохранённые фильмы</NavLink>
-                        </li>
-                        <li className='navigation__item navigation__item_account'>
-                            <NavLink exact to='/profile' className='navigation__link' activeClassName={'navigation__link_active'}>Аккаунт</NavLink>
-                        </li>
-                    </ul>
-                </nav>
+                            <li className='navigation__item'>
+                                <NavLink exact to='/saved-movies' className='navigation__link' activeClassName={'navigation__link_active'}>Сохранённые фильмы</NavLink>
+                            </li>
+                            <li className='navigation__item navigation__item_account'>
+                                <NavLink exact to='/profile' className='navigation__link' activeClassName={'navigation__link_active'}>Аккаунт</NavLink>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             )}
         </>
     );

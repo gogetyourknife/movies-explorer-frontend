@@ -12,6 +12,7 @@
 
 .hamburger_off {
     background-image: url('../../images/navigation/hamburger.svg');
+    z-index: 3;
 }
 
 .hamburger:hover {
@@ -20,11 +21,12 @@
 
 .hamburger_on {
     background-image: url('../../images/navigation/close.svg');
-    position: absolute;
+    position: fixed;
     right: 0;
     margin-top: 23px;
     margin-right: 23px;
     padding: 0;
+    z-index: 5;
 }
 
 @media (max-width: 769px) {
