@@ -13,8 +13,10 @@ function MoviesCard({ card }) {
         <li className='movies__card'>
             <div className='movies__card-item'>
                 <div className='movies__card-descr'>
-                    <h2 className='movies__card-title'>{card.nameRu}</h2>
-                    <span className='movies__card-time'>{card.duration}</span>
+                    <div className='movies__descr-wrapper'>
+                        <h2 className='movies__card-title'>{card.nameRU}</h2>
+                        <span className='movies__card-time'>{card.duration}</span>
+                    </div>
                     {location.pathname === '/movies' && (
                         <button
                             type='button'

@@ -13,8 +13,9 @@
 .search__wrapper {
     width: 100%;
     background: #F9F9F9;
-    border-radius: 9px;
     display: flex;
+    border-radius: 9px;
+    max-width: calc(100% - 60px);
 }
 
 .search__icon {
@@ -33,6 +34,7 @@
     justify-content: center;
     margin: 0;
     padding: 19px 30px 19px 19px;
+    border-radius: 9px;
 }
 
 .search__line {
@@ -89,9 +91,17 @@
     }
 }
 
+@media (min-width: 321px) and (max-width: 626px) {
+    .search {
+        margin: 80px 30px 80px;
+        padding-bottom: 80px;
+    }
+}
+
 @media (max-width: 600px) {
     .search {
-        margin: 80px 10px 120px;
+        margin-left: 10px;
+        margin-right: 10px;
         width: calc(100% - 20px);
         padding-bottom: 45px;
     }
@@ -124,5 +134,11 @@
 
     .search__line {
         display: none;
+    }
+}
+
+@media (max-width: 320px) {
+    .search {
+        margin-bottom: 50px;
     }
 }

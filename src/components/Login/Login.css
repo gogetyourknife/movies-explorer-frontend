@@ -183,13 +183,18 @@
 
 @media (min-width: 321px) and (max-width: 475px) {
 
-    .login__form,
-    .login__button-wrapper {
+    .login__form {
         width: calc(100% - 60px);
     }
 
+    .login__laber-wrapper,
+    .login__button-wrapper {
+        width: 100%;
+    }
+
     .login__button_singin {
-        width: calc(100% - 20px);
+        width: 100%;
+        max-width: 300px;
     }
 
     .login__form {
@@ -210,7 +215,6 @@
 }
 
 @media (max-width: 320px) {
-
     .login {
         padding-bottom: 0;
     }

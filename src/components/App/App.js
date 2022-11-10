@@ -1,6 +1,7 @@
 import './App.css';
+import moviesTemplate from '../../utils/template'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Header from '../Header/Header';
@@ -17,11 +18,22 @@ function App() {
 
   const loggedIn = true;
   const [isNavigationOpened, setIsNavigationOpened] = useState(false);
-  const [movies] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
 
   function onClickHamburger() {
     setIsNavigationOpened(!isNavigationOpened);
   }
+
+  useEffect(() => {
+    setMovies(moviesTemplate);
+  }, []);
+
+  useEffect(() => {
+    setSavedMovies(moviesTemplate.filter((movie) => {
+      return movie.saved
+    }))
+  }, []);
 
   return (
     <div className='app'>
@@ -52,7 +64,7 @@ function App() {
             onClickHamburger={onClickHamburger}
             isNavigationOpened={isNavigationOpened} />
           <SavedMovies
-            movies={movies} />
+            movies={savedMovies} />
           <Footer />
         </Route>
 

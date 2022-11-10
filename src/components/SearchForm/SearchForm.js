@@ -12,11 +12,12 @@ function SearchForm() {
                         alt='Лупа поиска'
                     />
                     <input
+                        required
                         className='search__input'
                         type='text'
                         placeholder='Фильм'
                     />
-                    <button className='search__button' type='submit'></button>
+                    <button type='submit' className='search__button'></button>
                     <div className='search__line'></div>
                 </form>
                 <FilterCheckbox />

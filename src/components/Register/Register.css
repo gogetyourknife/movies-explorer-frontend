@@ -179,18 +179,20 @@
 
 @media (min-width: 321px) and (max-width: 475px) {
 
-    .register__form,
-    .register__button-wrapper {
+    .register__form {
         width: calc(100% - 60px);
+        justify-content: center;
+        align-items: center;
     }
 
     .register__button_singin {
-        width: calc(100% - 20px);
+        width: 100%;
+        max-width: 300px;
     }
 
-    .register__form {
-        justify-content: center;
-        align-items: center;
+    .register__laber-wrapper,
+    .register__button-wrapper {
+        width: 100%;
     }
 
     .register__text,
