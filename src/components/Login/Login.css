@@ -166,7 +166,6 @@
 
 @media (min-width: 321px) and (max-width: 768px) {
     .login {
-        padding-top: 232px;
         padding-bottom: 0;
     }
 
@@ -182,7 +181,6 @@
 }
 
 @media (min-width: 321px) and (max-width: 475px) {
-
     .login__form {
         width: calc(100% - 60px);
     }

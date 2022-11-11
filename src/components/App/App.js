@@ -16,7 +16,7 @@ import Register from '../Register/Register'
 
 function App() {
 
-  const loggedIn = true;
+  const loggedIn = false;
   const [isNavigationOpened, setIsNavigationOpened] = useState(false);
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
