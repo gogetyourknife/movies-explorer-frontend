@@ -44,7 +44,7 @@ function Register() {
                             minLength='1'
                             maxLength='30'
                         />
-                        <span className='register__error-name'>Что-то пошло не так</span>
+                        <span className='register__error-name'></span>
                     </label>
                 </div>
                 <div className='register__button-wrapper'>
