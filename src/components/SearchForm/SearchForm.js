@@ -1,8 +1,11 @@
 import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import icon from '../../images/search/icon.svg'
+import icon from '../../images/search/icon.svg';
+import { useLocation } from 'react-router-dom';
+import useFormValidation from '../../utils/validation';
 
-function SearchForm() {
+function SearchForm({ handleCheckboxChange, checked }) {
+    const { handleChange } = useFormValidation();
     return (
         <section className='search'>
             <div className='search__wrapper'>
@@ -20,7 +23,9 @@ function SearchForm() {
                     <button type='submit' className='search__button'></button>
                     <div className='search__line'></div>
                 </form>
-                <FilterCheckbox />
+                <FilterCheckbox
+                    onChange={handleCheckboxChange}
+                    checked={checked} />
             </div>
         </section>
     )

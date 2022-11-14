@@ -5,7 +5,7 @@ import { useState } from 'react';
 function FilterCheckbox() {
 
     const [checked, setChecked] = useState(false);
-    const handleChange = nextChecked => {
+    const handleCheckboxChange = nextChecked => {
         setChecked(nextChecked);
     };
 
@@ -13,7 +13,7 @@ function FilterCheckbox() {
         <label className='filter'>
             <Switch
                 handleDiameter={16}
-                onChange={handleChange}
+                onChange={handleCheckboxChange}
                 checked={checked}
                 className='react-switch'
                 uncheckedIcon={false}
