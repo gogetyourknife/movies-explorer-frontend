@@ -1,8 +1,8 @@
-import MOVIES_URL from './constants.js'
+import { MOVIES_URL } from '../utils/constants'
 
 class MoviesApi {
-    constructor({ baseURL }) {
-        this._baseURL = baseURL;
+    constructor({ baseUrl }) {
+        this._baseUrl = baseUrl;
     }
 
     _handleResponse(res) {
@@ -12,10 +12,11 @@ class MoviesApi {
         return Promise.reject(`Ошибка: ${res.status}`);
     };
 
-    getAllMovies() {
-        return fetch(`${this._baseURL}`, {
+    getMovies() {
+        return fetch(`${this._baseUrl}`, {
             headers: {
-                "Content-Type": "application/json",
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
             },
         })
             .then(this._handleResponse)

@@ -1,18 +1,22 @@
 import './Login.css';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import logo from '../../images/header/logo.svg';
+import Error from '../Error/Error.js';
 
-import useFormValidation from '../../utils/validation'
+import useFormValidation from '../../hooks/useFormValidation';
 
-function Login({ handleAuthorization }) {
-
+function Login({ onLogin, loginError }) {
     const { values, handleChange, errors, isValid, resetForm } = useFormValidation();
 
-    function handleSubmit(evt) {
-        evt.preventDefault();
-        handleAuthorization(values);
-        resetForm();
-    };
+    useEffect(() => {
+        resetForm('', '', false);
+    }, [resetForm]);
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        onLogin(values)
+    }
 
     return (
         <main className='login'>
@@ -50,6 +54,8 @@ function Login({ handleAuthorization }) {
                     </label>
                 </div>
                 <div className='login__button-wrapper'>
+                    <Error
+                        errorMessage={loginError} />
                     <button
                         disabled={!isValid}
                         type='submit'

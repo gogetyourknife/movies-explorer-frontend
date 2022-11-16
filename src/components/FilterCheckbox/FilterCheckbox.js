@@ -1,20 +1,14 @@
 import './FilterCheckbox.css';
 import Switch from "react-switch";
-import { useState } from 'react';
 
 function FilterCheckbox() {
-
-    const [checked, setChecked] = useState(false);
-    const handleCheckboxChange = nextChecked => {
-        setChecked(nextChecked);
-    };
 
     return (
         <label className='filter'>
             <Switch
                 handleDiameter={16}
-                onChange={handleCheckboxChange}
-                checked={checked}
+                //onChange={onChangeCheckbox}
+                //checked={checked}
                 className='react-switch'
                 uncheckedIcon={false}
                 checkedIcon={false}

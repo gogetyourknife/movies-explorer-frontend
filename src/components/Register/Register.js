@@ -1,19 +1,22 @@
 import './Register.css';
 import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import logo from '../../images/header/logo.svg';
+import Error from '../Error/Error.js';
 
-import useFormValidation from '../../utils/validation'
+import useFormValidation from '../../hooks/useFormValidation'
 
-function Register({ handleRegistration }) {
-
+function Register({ registerError, onRegister }) {
     const { values, handleChange, errors, isValid, resetForm } = useFormValidation();
 
-    function handleSubmit(evt) {
-        evt.preventDefault();
-        handleRegistration(values);
-        resetForm();
-    };
+    useEffect(() => {
+        resetForm({}, {}, false);
+    }, [resetForm]);
 
+    function handleSubmit(e) {
+        e.preventDefault();
+        onRegister(values)
+    }
     return (
         <main className='register'>
             <form className='register__form' noValidate onSubmit={handleSubmit}>
@@ -63,6 +66,8 @@ function Register({ handleRegistration }) {
                     </label>
                 </div>
                 <div className='register__button-wrapper'>
+                    <Error
+                        errorMessage={registerError} />
                     <button
                         disabled={!isValid}
                         type='submit'

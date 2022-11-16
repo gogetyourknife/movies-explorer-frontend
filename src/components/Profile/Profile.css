@@ -107,7 +107,7 @@
 
 .profile__button_disabled {
     cursor: default;
-    background-color: rgb(100, 100, 100);
+    color: rgb(100, 100, 100);
 }
 
 .profile__button:hover {

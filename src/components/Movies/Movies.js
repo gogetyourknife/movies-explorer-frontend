@@ -1,27 +1,35 @@
 import './Movies.css'
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Preloader from '../Preloader/Preloader';
 
-import { useState, useContext, useEffect } from 'react';
-
-import CurrentUserContext from '../../context/CurrentUserContext';
-
-function Movies({ setIsRespondMessagePopupOpen, setIsLoading, setSavedMovies, onSaveClick, onDeleteClick }) {
-
-    const [movies, setMovies] = useState([]);
-    const [shortMovies, setShortMovies] = useState(false);
-    const [filteredMovies, setFilteredMovies] = useState([]);
-    const [allMovies, setAllMovies] = useState([]);
-    const [notFound, setNotFound] = useState(false);
-
-    const currentUser = useContext(CurrentUserContext);
+function Movies() {
 
     return (
-        <main className="movies">
-            <SearchForm />
-            <MoviesCardList movies={movies} />
+        <main className='movies'>
+            {/*             <SearchForm />
+            {isLoading ?
+                <div className='movies__preloader'>
+                    <Preloader />
+                </div>
+                : isSearchDone
+                    ? renderedMovies.length > 0
+                        ? <MoviesCardList
+                        />
+                        : (!isLoading ?
+                            <div className='movies__wrapper'>
+                                <span className='movies__info'>Ничего не найдено</span>
+                            </div>
+                            :
+                            <div className='movies__wrapper'>
+                                <span className='movies__info'>{результат}</span>
+                            </div>
+                        )
+                    : ('')
+            } */}
         </main>
-    )
+    );
 }
 
 export default Movies;
+

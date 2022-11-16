@@ -1,0 +1,16 @@
+.error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    padding-bottom: 15px;
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FF4062;
+}
+
+.error__visible {
+    visibility: visible;
+}

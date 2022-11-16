@@ -1,28 +1,60 @@
 import './Profile.css';
 import { useEffect, useContext } from 'react';
-import useFormValidation from '../../utils/validation'
+import { ERROR_NEED_A_NEW_NAME, ERROR_NEED_A_NEW_EMAIL } from '../../utils/errors';
+import useFormValidation from '../../hooks/useFormValidation';
 import CurrentUserContext from '../../context/CurrentUserContext';
 
-function Profile({ handleProfileUpdate, handleLogout }) {
+function Profile({ onUpdateUser, onSignOut }) {
+    const { values, setValues, errors, setErrors, handleChange, isValid, setIsValid } = useFormValidation();
+
     const currentUser = useContext(CurrentUserContext);
-    const { values, handleChange, errors, isValid, resetForm, setValues } = useFormValidation();
 
-    const dataValidation = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
+    const handleChangeName = (e) => {
+        if (e.target.value === currentUser.name || e.target.value === currentUser.email) {
+            setIsValid(false);
+            setErrors({
+                errors: errors.name,
+                [e.target.name]: ERROR_NEED_A_NEW_NAME
+            })
+        } else {
+            handleChange(e);
+        }
+    };
 
-    function handleSubmit(evt) {
-        evt.preventDefault();
-        handleProfileUpdate(values);
-        resetForm();
+    const handleChangeEmail = (e) => {
+        if (e.target.value === currentUser.name || e.target.value === currentUser.email) {
+            setIsValid(false);
+            setErrors({
+                errors: errors.name,
+                [e.target.name]: ERROR_NEED_A_NEW_EMAIL
+            });
+        } else {
+            handleChange(e);
+        }
     };
 
     useEffect(() => {
-        setValues(currentUser);
+        setValues({
+            name: currentUser.name,
+            email: currentUser.email
+        });
     }, [currentUser, setValues]);
 
-    function handleSignout() {
-        handleLogout();
-        resetForm();
-    };
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        onUpdateUser({
+            name: values.name,
+            email: values.email,
+        });
+    }
+
+    useEffect(() => {
+        setIsValid(false);
+        setValues({
+            name: currentUser.name,
+            email: currentUser.email,
+        });
+    }, [onUpdateUser])
 
     return (
         <main className='profile'>
@@ -33,7 +65,7 @@ function Profile({ handleProfileUpdate, handleLogout }) {
                         <label className='profile__label'>
                             <span className='profile__label-title'>Имя</span>
                             <input
-                                onChange={handleChange}
+                                onChange={handleChangeName}
                                 value={values.name || ''}
                                 required
                                 name='name'
@@ -48,7 +80,7 @@ function Profile({ handleProfileUpdate, handleLogout }) {
                         <label className='profile__label profile__label-email'>
                             <span className='profile__label-title'>E-mail</span>
                             <input
-                                onChange={handleChange}
+                                onChange={handleChangeEmail}
                                 value={values.email || ''}
                                 required
                                 name='email'
@@ -65,11 +97,11 @@ function Profile({ handleProfileUpdate, handleLogout }) {
                             className={`
                             profile__button 
                             profile__button_change 
-                            ${dataValidation ? 'profile__button_disabled' : ''}`}>
+                            ${isValid ? 'profile__button_disabled' : ''}`}>
                             Редактировать
                         </button>
                         <button
-                            onClick={handleSignout}
+                            onClick={onSignOut}
                             type='submit'
                             className='profile__button profile__button_logout'>
                             Выйти из аккаунта

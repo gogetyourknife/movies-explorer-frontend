@@ -1,13 +1,16 @@
 import './App.css';
 import CurrentUserContext from '../../context/CurrentUserContext.js';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+
 import { useState, useEffect } from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 
-import { mainApi } from '../../utils/MainApi'
+// import { SCREEN_DESTOP, MOVIES_DESTOP, LOAD_DESKTOP, SCREEN_TABLET, MOVIES_TABLET, SCREEN_MOBILE, MOVIES_MOBILE, LOAD_TABLET_AND_MOBILE } from '../../utils/constants'; // для загрузки карточек
 
-import Preloader from '../Preloader/Preloader';
+import { ERROR_401, ERROR_409, ERROR_500, ERROR_EMAIL_EXISTS, ERROR_SERVER_FAILED, ERROR_REG, ERROR_LOGIN, ERROR_WRONG_EMAIL_OR_PASSWORD, PROFILE_UPDATE_INFO, ERROR_PROFILE_UPDATE_FAILED } from '../../utils/errors';
+
+import { mainApi } from '../../api/MainApi';
+
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -18,23 +21,19 @@ import NotFound from '../NotFound/NotFound';
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 
-import InfoTooltip from '../InfoTooltip/InfoTooltip'
-
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({});
-  const [isNavigationOpened, setIsNavigationOpened] = useState(false);
-  const [savedMovies, setSavedMovies] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false); // логин
+  const [currentUser, setCurrentUser] = useState({});
 
-  const [loader, setLoader] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // для описания ошибок для пользователя
+  const [loginError, setLoginError] = useState('');
+  const [registrationError, setRegistrationError] = useState('');
+  const [profileError, setProfileError] = useState('');
 
-  const [isRespondMessagePopupOpen, setIsRespondMessagePopupOpen] = useState({
-    isOpen: false,
-    isRespond: false,
-    isRespondMessage: '',
-  })
+  // const [loading, setLoading] = useState(false); // загрузка
+
+  const [isNavigationOpened, setIsNavigationOpened] = useState(false); // навигационное меню
 
   const history = useHistory();
 
@@ -59,307 +58,186 @@ function App() {
           document.removeEventListener('keydown', handleEsc);
         };
       }
-    }, [dependency]);
+    }, [dependency, callback]);
   }
 
   useClickEscape(onClickHamburger, isNavigationOpened)
 
-  // закрытие попапа с ошибкой
-
-  function onClosePopup() {
-    setIsRespondMessagePopupOpen({
-      isOpen: false,
-      isRespond: false,
-      isRespondMessage: ' '
-    })
-  };
-
   // проверка токена
 
-  function checkToken() {
+  const handleCheckToken = () => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      setIsLoading(true);
       mainApi
-        .getProfileInfo()
+        .getUserInfo(jwt)
         .then((res) => {
           if (res) {
-            setLoggedIn(true);
-            setUserData(res);
+            setLoggedIn(true)
+            setCurrentUser(res)
             history.push('/');
           }
         })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          setIsLoading(false);
-          setLoader(true);
-        })
-    } else {
-      setLoader(true);
+        .catch((err) => console.log(err))
     }
-  };
+  }
 
   useEffect(() => {
-    checkToken();
-  },
-    []);
-
-  useEffect(() => {
-    if (!loggedIn) {
-      history.push('/');
-    }
-  },
-    [loggedIn, history]);
-
-  // получение данных профиля
-
-  useEffect(() => {
-    if (loggedIn) {
-      setIsLoading(true);
-      mainApi.getProfileInfo()
-        .then((res) => {
-          setUserData(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => setIsLoading(false));
-    }
-  },
-    [loggedIn]);
-
-  // получение фильмов
-
-  useEffect(() => {
-    if (loggedIn && userData) {
-      mainApi.getMovies()
-        .then(data => {
-          const userMovieList = data.filter(i => i.owner === userData._id);
-          setSavedMovies(userMovieList);
-        })
-        .catch((err) => {
-          console.log(err);
-          setIsRespondMessagePopupOpen({
-            isOpen: true,
-            isRespond: false,
-            isRespondMessage: 'Что-то пошло не так! Попробуйте ещё раз.',
-          });
-        })
-    }
-  }, [userData, loggedIn]);
+    handleCheckToken();
+  }, [loggedIn])
 
 
   // регистрация
 
-  const handleRegistration = ({ name, email, password }) => {
-    setIsLoading(true);
-    return mainApi.registration(name, email, password)
-      .then((data) => {
-        if (data._id) {
-          handleAuthorization({ email, password })
-        }
-        history.push('/sign-in');
+  function handleRegistration({ name, email, password }) {
+    mainApi.registration({ name, email, password })
+      .then(() => {
+        handleLogin({ email, password });
       })
       .catch((err) => {
-        console.log(err);
-        setIsRespondMessagePopupOpen({
-          isOpen: true,
-          isRespond: false,
-          isRespondMessage: 'Что-то пошло не так! Попробуйте ещё раз.',
-        });
-      })
-      .finally(() => setIsLoading(false));
-  };
+        if (err === ERROR_409) {
+          setRegistrationError(ERROR_EMAIL_EXISTS);
+        } else
+          if (err === ERROR_500) {
+            setRegistrationError(ERROR_SERVER_FAILED);
+          }
+          else {
+            setRegistrationError(ERROR_REG);
+          }
+      });
+  }
 
   // логин
-
-  const handleAuthorization = ({ email, password }) => {
-    setIsLoading(true);
-    return mainApi.authorization(email, password)
-      .then((data) => {
-        if (data.jwt) {
-          localStorage.setItem('jwt', data.jwt);
+  function handleLogin({ email, password }) {
+    return mainApi
+      .authorization({ email, password })
+      .then((res) => {
+        if (res) {
+          localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
-          checkToken();
           history.push('/movies');
         }
       })
       .catch((err) => {
-        console.log(err);
-        setIsRespondMessagePopupOpen({
-          isOpen: true,
-          isRespond: false,
-          isRespondMessage: 'Что-то пошло не так! Попробуйте ещё раз.',
-        });
+        if (err === ERROR_401) {
+          setLoginError(ERROR_WRONG_EMAIL_OR_PASSWORD);
+        } else
+          if (err === ERROR_500) {
+            setLoginError(ERROR_SERVER_FAILED);
+          }
+          else {
+            setLoginError(ERROR_LOGIN);
+          }
       })
-      .finally(() => setIsLoading(false));
-  };
+  }
 
-  // редактирование профиля
-
-  const handleProfileUpdate = ({ name, email }) => {
-    setIsLoading(true);
-    return mainApi.editProfile(name, email)
-      .then((data) => {
-        setUserData(data);
-        setIsRespondMessagePopupOpen({
-          isOpen: true,
-          isRespond: false,
-          isRespondMessage: 'Данные обновлены!',
-        });
+  //  редактировать данные профияля
+  function handleUpdateUser(user) {
+    const token = localStorage.getItem('jwt');
+    mainApi
+      .editProfile(user, token)
+      .then((updateUser) => {
+        setLoggedIn(true);
+        setCurrentUser(updateUser);
+        localStorage.setItem('name', updateUser.name);
+        localStorage.setItem('email', updateUser.email);
+        setProfileError(PROFILE_UPDATE_INFO);
       })
       .catch((err) => {
-        console.log(err);
-        setIsRespondMessagePopupOpen({
-          isOpen: true,
-          isRespond: false,
-          isRespondMessage: 'Что-то пошло не так! Попробуйте ещё раз.',
-        });
+        if (err === ERROR_409) {
+          setProfileError(ERROR_EMAIL_EXISTS);
+        } else {
+          setProfileError(ERROR_PROFILE_UPDATE_FAILED);
+        }
       })
-      .finally(() => setIsLoading(false));
-  };
+  }
 
   // логаут
 
-  function handleLogout() {
-    localStorage.removeItem('jwt');
-    setLoggedIn(false);
-    setUserData(null);
+  const handleLogout = () => {
+    localStorage.clear();
     history.push('/');
+    setLoggedIn(false);
   };
 
-  // отрисовка фильмов
-
-  const handleSaveMovie = (movie) => {
-    setIsLoading(true);
-    return mainApi.saveMovie(movie)
-      .then(movieItem => setSavedMovies([movieItem, ...savedMovies]))
-      .catch((err) => {
-        console.log(err);
-        setIsRespondMessagePopupOpen({
-          isOpen: true,
-          isRespond: false,
-          isRespondMessage: 'Что-то пошло не так! Попробуйте ещё раз.',
-        });
-      })
-      .finally(() => setIsLoading(false));
-  }
-
-  // удаление фильма
-
-  const handleDeleteMovie = (movie) => {
-    setIsLoading(true);
-    const savedMovie = savedMovies.find(
-      (i) => i.movieId === movie.id || i.movieId === movie.movieId
-    );
-    mainApi.deleteMovie(savedMovie._id)
-      .then(() => {
-        const updatedMoviesList = savedMovies.filter(i => {
-          if (movie.id === i.movieId || movie.movieId === i.movieId) {
-            return false
-          } else {
-            return true
-          }
-        });
-        setSavedMovies(updatedMoviesList);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsRespondMessagePopupOpen({
-          isOpen: true,
-          isRespond: false,
-          isRespondMessage: 'Что-то пошло не так! Попробуйте ещё раз.',
-        });
-      })
-      .finally(() => setIsLoading(false));
-  }
+  // прелоадер
+  /*   function startLoading() {
+      setLoading(true);
+      setTimeout(() => setLoading(false), 500);
+    } */
 
   return (
     <div className='app'>
-      {!loader ? (
-        <Preloader isOpen={isLoading} />
-      ) : (
-        <CurrentUserContext.Provider value={userData}>
+      <CurrentUserContext.Provider value={currentUser}>
 
-          <Switch>
-            <Route exact path='/'>
-              <Header
-                loggedIn={loggedIn}
-                onClickHamburger={onClickHamburger}
-                isNavigationOpened={isNavigationOpened} />
-              <Main />
-              <Footer />
-            </Route>
+        <Switch>
+          <Route exact path='/'>
+            <Header
+              loggedIn={loggedIn}
+              onClickHamburger={onClickHamburger}
+              isNavigationOpened={isNavigationOpened} />
+            <Main />
+            <Footer />
+          </Route>
 
-            <Route exact path='/signin'>
-              {!loggedIn ? (
-                <Login handleAuthorization={handleAuthorization} />
-              ) : (
-                <Redirect to='/' />
-              )}
-            </Route>
+          <Route exact path='/signin'>
+            {!loggedIn ? (
+              <Login onLogin={handleLogin}
+                loginError={loginError} />
+            ) : (
+              <Redirect to='/' />
+            )}
+          </Route>
 
-            <Route exact path='/signup'>
-              {!loggedIn ? (
-                <Register handleRegistration={handleRegistration} />
-              ) : (
-                <Redirect to='/' />
-              )}
-            </Route>
+          <Route exact path='/signup'>
+            {!loggedIn ? (
+              <Register onRegister={handleRegistration}
+                registrationError={registrationError} />
+            ) : (
+              <Redirect to='/' />
+            )}
+          </Route>
 
+          <ProtectedRoute exact path='/movies' loggedIn={loggedIn}>
+            <Header
+              loggedIn={loggedIn}
+              onClickHamburger={onClickHamburger}
+              isNavigationOpened={isNavigationOpened} />
+            {<Movies
+              loggedIn={loggedIn}
+            />}
+            <Footer />
+          </ProtectedRoute>
 
-            <ProtectedRoute exact path='/movies'>
-              <Header
-                loggedIn={loggedIn}
-                onClickHamburger={onClickHamburger}
-                isNavigationOpened={isNavigationOpened} />
-              <Movies
-                savedMovies={savedMovies}
-                setIsLoading={setIsLoading}
-                onSaveClick={handleSaveMovie}
-                onDeleteClick={handleDeleteMovie}
-              />
-              <Footer />
-            </ProtectedRoute>
+          <ProtectedRoute exact path='/saved-movies' loggedIn={loggedIn}>
+            <Header
+              loggedIn={loggedIn}
+              onClickHamburger={onClickHamburger}
+              isNavigationOpened={isNavigationOpened} />
+            {<SavedMovies
+              loggedIn={loggedIn} />}
+            <Footer />
+          </ProtectedRoute>
 
-            <ProtectedRoute exact path='/saved-movies'>
-              <Header
-                loggedIn={loggedIn}
-                onClickHamburger={onClickHamburger}
-                isNavigationOpened={isNavigationOpened} />
-              <SavedMovies
-                savedMovies={savedMovies}
-                setIsLoading={setIsLoading}
-                onDeleteClick={handleDeleteMovie} />
-              <Footer />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path='/profile'>
-              <Header
-                loggedIn={loggedIn}
-                onClickHamburger={onClickHamburger}
-                isNavigationOpened={isNavigationOpened} />
-              <Profile
-                handleProfileUpdate={handleProfileUpdate}
-                handleLogout={handleLogout}
-              />
-            </ProtectedRoute>
-
-            <Route path='*'>
-              <NotFound />
-            </Route>
-
-            <InfoTooltip
-              onClosePopup={onClosePopup}
-              isOpen={isRespondMessagePopupOpen.isOpen}
-              isRespond={isRespondMessagePopupOpen.isRespond}
-              isRespondMessage={isRespondMessagePopupOpen.isRespondMessage}
+          <ProtectedRoute exact path='/profile' loggedIn={loggedIn}>
+            <Header
+              loggedIn={loggedIn}
+              onClickHamburger={onClickHamburger}
+              isNavigationOpened={isNavigationOpened} />
+            <Profile
+              loggedIn={loggedIn}
+              onUpdateUser={handleUpdateUser}
+              profileError={profileError}
+              onSignOut={handleLogout}
             />
-          </Switch>
-        </CurrentUserContext.Provider>
-      )}
+          </ProtectedRoute>
+
+          <Route path='*'>
+            <NotFound />
+          </Route>
+
+        </Switch>
+      </CurrentUserContext.Provider>
+
     </div>
   );
 

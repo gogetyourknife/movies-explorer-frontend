@@ -1,51 +1,25 @@
 import './MoviesCardList.css'
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movies }) {
+function MoviesCardList() {
 
-    const location = useLocation();
-
-    function useWindowSize() {
-        const [width, setWidth] = useState(window.screen.width);
-        useEffect(() => {
-            const handleResize = () => {
-                setWidth(window.screen.width)
-            }
-            window.addEventListener('resize', handleResize)
-        }, []);
-        return width
-    }
-
-    const width = useWindowSize();
+    /*  const moreLoadingButtonClass = туткнопка ? `movies__card-list_more` : `movies__card-list_more_hidden`; */
 
     return (
         <section className='movies__card-list'>
             <ul className='movies__list'>
-                {width > 769 &&
-                    movies
-                        .slice(0, 12)
-                        .map((card) =>
-                            <MoviesCard key={card._id} card={card} />
-                        )}
-                {width >= 500 &&
-                    width <= 768 &&
-                    movies
-                        .slice(0, 8)
-                        .map((card) =>
-                            <MoviesCard key={card._id} card={card} />
-                        )}
-                {width < 499 &&
-                    movies
-                        .slice(0, 5)
-                        .map((card) =>
-                            <MoviesCard key={card._id} card={card} />
-                        )}
             </ul>
-            {location.pathname === '/movies' && (
-                <button className='movies__card-list_more'>Ещё</button>
-            )}
+            {/*             {!загрузка ? проверка завершения поиска
+            ? <>
+                <button
+                    onClick={загрузка}
+                    className={туткнопка}
+                    aria-label='Загрузить ещё'
+                    type='button'>Ещё</button>
+            </>
+            : ('') // или ничего не отрисовываем
+            : ('')
+            } */}
         </section>
     )
 }
