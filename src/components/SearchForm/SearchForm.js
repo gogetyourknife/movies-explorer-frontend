@@ -1,10 +1,19 @@
 import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import icon from '../../images/search/icon.svg';
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import useFormValidation from '../../hooks/useFormValidation'
 
 function SearchForm() {
+
+    const { handleChange } = useFormValidation();
+    const location = useLocation();
+    const [checkboxStatus, setCheckboxStatus] = useState(false);
+
+    const handleCheckboxChange = nextChecked => {
+        setCheckboxStatus(nextChecked);
+    };
 
     return (
         <section className='search'>
@@ -18,8 +27,8 @@ function SearchForm() {
                         alt='Лупа поиска'
                     />
                     <input
-                        value={''}
-                        // onChange={handleSearchChange}
+                        // value={search || ''}
+                        onChange={handleChange}
                         required
                         className='search__input'
                         type='text'
@@ -29,7 +38,8 @@ function SearchForm() {
                     <div className='search__line'></div>
                 </form>
                 <FilterCheckbox
-                //   onChangeCheckbox={handleCheckboxChange}
+                    onChangeCheckbox={handleCheckboxChange}
+                    checkboxStatus={checkboxStatus}
                 />
             </div>
         </section>

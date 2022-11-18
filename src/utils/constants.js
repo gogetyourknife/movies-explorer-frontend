@@ -12,26 +12,3 @@ export const MOVIES_TABLET = 8;
 export const SCREEN_MOBILE = 480;
 export const MOVIES_MOBILE = 5;
 export const LOAD_TABLET_AND_MOBILE = 2;
-
-export const initialCards = (width) => {
-    if (width >= 1280) {
-        return 12;
-    }
-    if (width >= 768) {
-        return 8;
-    } else {
-        return 5;
-    }
-};
-
-export const loadingCards = (width) => {
-    if (width >= 1280) {
-        return 3;
-    }
-    if (width >= 768) {
-        return 2;
-    } else {
-        return 2;
-    }
-};
-

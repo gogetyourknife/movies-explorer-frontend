@@ -1,33 +1,26 @@
-import './Movies.css'
+import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
-function Movies() {
+function Movies({ initialCards,
+    onCardSave,
+    isSaved,
+    onSearch, }) {
+
 
     return (
         <main className='movies'>
-            {/*             <SearchForm />
-            {isLoading ?
-                <div className='movies__preloader'>
-                    <Preloader />
-                </div>
-                : isSearchDone
-                    ? renderedMovies.length > 0
-                        ? <MoviesCardList
-                        />
-                        : (!isLoading ?
-                            <div className='movies__wrapper'>
-                                <span className='movies__info'>Ничего не найдено</span>
-                            </div>
-                            :
-                            <div className='movies__wrapper'>
-                                <span className='movies__info'>{результат}</span>
-                            </div>
-                        )
-                    : ('')
-            } */}
+            <SearchForm
+                onSearch={onSearch} />
+            {initialCards.length > 0 &&
+                <MoviesCardList
+                    cards={initialCards}
+                    onCardSave={onCardSave}
+                    isSaved={isSaved}
+                />}
         </main>
+
     );
 }
 

@@ -70,19 +70,7 @@ class Api {
                 'Content-Type': 'application/json',
                 authorization: `Bearer ${localStorage.getItem('jwt')}`,
             },
-            body: JSON.stringify({
-                country: data.country,
-                director: data.director,
-                duration: data.duration,
-                year: data.year,
-                description: data.description,
-                image: data.image,
-                trailerLink: data.trailerLink,
-                thumbnail: data.thumbnail,
-                movieId: data.id,
-                nameRU: data.nameRU,
-                nameEN: data.nameEN,
-            })
+            body: JSON.stringify(data)
         })
             .then(this._handleResponse)
     }

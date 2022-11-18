@@ -2,14 +2,13 @@ import './App.css';
 import CurrentUserContext from '../../context/CurrentUserContext.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
-
-// import { SCREEN_DESTOP, MOVIES_DESTOP, LOAD_DESKTOP, SCREEN_TABLET, MOVIES_TABLET, SCREEN_MOBILE, MOVIES_MOBILE, LOAD_TABLET_AND_MOBILE } from '../../utils/constants'; // для загрузки карточек
 
 import { ERROR_401, ERROR_409, ERROR_500, ERROR_EMAIL_EXISTS, ERROR_SERVER_FAILED, ERROR_REG, ERROR_LOGIN, ERROR_WRONG_EMAIL_OR_PASSWORD, PROFILE_UPDATE_INFO, ERROR_PROFILE_UPDATE_FAILED } from '../../utils/errors';
 
 import { mainApi } from '../../api/MainApi';
+import moviesApi from '../../api/MoviesApi';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -31,11 +30,11 @@ function App() {
   const [registrationError, setRegistrationError] = useState('');
   const [profileError, setProfileError] = useState('');
 
-  // const [loading, setLoading] = useState(false); // загрузка
-
   const [isNavigationOpened, setIsNavigationOpened] = useState(false); // навигационное меню
 
   const history = useHistory();
+
+  /* БЛОК АВТОРИЗАЦИИ */
 
   // работа гамбургера
 
@@ -152,18 +151,89 @@ function App() {
   }
 
   // логаут
-
   const handleLogout = () => {
     localStorage.clear();
     history.push('/');
     setLoggedIn(false);
   };
 
-  // прелоадер
-  /*   function startLoading() {
-      setLoading(true);
-      setTimeout(() => setLoading(false), 500);
-    } */
+  /* БЛОК ФИЛЬМОВ */
+
+  const [initialCards, setInitialCards] = useState([]);
+  const [savedCards, setSavedCards] = useState([]);
+
+  // создаем карточки нужного формата 
+
+  function createMovieCards(initialMovies) {
+    const cards = initialMovies.map((movie) => ({
+      movieId: movie.id,
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      trailerLink: movie.trailerLink,
+      image: `https://api.nomoreparties.co/${movie.image.url}`,
+      thumbnail: `https://api.nomoreparties.co/${movie.image.url}`,
+      nameEN: movie.nameEN,
+      nameRU: movie.nameRU,
+    }));
+    setInitialCards(cards);
+  };
+
+  // загрузка сохраненных карточек
+
+  function getSavedCards() {
+    mainApi.getSavedMovies()
+      .then((data) => {
+        setSavedCards(data.reverse());
+      })
+      .catch(err => console.log(err));
+  };
+
+  // выгружаем карточки из апи, !добавить проверку на поиск!
+  useEffect(() => {
+    if (loggedIn) {
+      moviesApi.getMovies()
+        .then((data) => {
+          localStorage.setItem('initialMovies', JSON.stringify(data));
+          createMovieCards(JSON.parse(localStorage.getItem('initialMovies')));
+        })
+        .catch(err => console.log(err));
+      getSavedCards();
+    }
+  }, [loggedIn]);
+
+  // сохранение фильма
+
+  function isSaved(card) {
+    const result = savedCards.some((savedCard) => savedCard.movieId === card.movieId);
+    return result;
+  };
+
+  function handleMovieSave(card) {
+    const isCardSaved = isSaved(card);
+    if (!isCardSaved) {
+      mainApi.saveMovie(card)
+        .then((data) => {
+          setSavedCards([data, ...savedCards]);
+        })
+        .catch(err => console.log(err));
+    } else {
+      const savedCard = savedCards.filter(savedCard => savedCard.movieId === card.movieId);
+      handleMovieDelete(savedCard[0]._id);
+    }
+  };
+
+  // удаление фильма
+  function handleMovieDelete(id) {
+    mainApi.deleteMovie(id)
+      .then((data) => {
+        const result = savedCards.filter(savedCard => savedCard._id !== id);
+        setSavedCards(result);
+      })
+      .catch(err => console.log(err));
+  };
 
   return (
     <div className='app'>
@@ -204,6 +274,9 @@ function App() {
               isNavigationOpened={isNavigationOpened} />
             {<Movies
               loggedIn={loggedIn}
+              onCardSave={handleMovieSave}
+              isSaved={isSaved}
+              initialCards={initialCards}
             />}
             <Footer />
           </ProtectedRoute>
@@ -214,7 +287,10 @@ function App() {
               onClickHamburger={onClickHamburger}
               isNavigationOpened={isNavigationOpened} />
             {<SavedMovies
-              loggedIn={loggedIn} />}
+              loggedIn={loggedIn}
+              savedCards={savedCards}
+              onCardDelete={handleMovieDelete}
+            />}
             <Footer />
           </ProtectedRoute>
 

@@ -5,10 +5,21 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import shortsFilter from '../../utils/short-filter';
 
-function SavedMovies() {
+function SavedMovies({ savedCards,
+    onCardDelete,
+    onSearch,
+}) {
 
     return (
         <main className='savedmovies'>
+            <SearchForm
+                onSearch={onSearch}
+            />
+            {savedCards.length > 0 &&
+                <MoviesCardList
+                    cards={savedCards}
+                    onCardDelete={onCardDelete}
+                />}
         </main>
     )
 }
