@@ -3,16 +3,22 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import icon from '../../images/search/icon.svg';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import useFormValidation from '../../hooks/useFormValidation'
 
-function SearchForm() {
+function SearchForm({ onSearch, onShorts }) {
 
-    const { handleChange } = useFormValidation();
     const location = useLocation();
-    const [checkboxStatus, setCheckboxStatus] = useState(false);
 
-    const handleCheckboxChange = nextChecked => {
-        setCheckboxStatus(nextChecked);
+    const [searchQuery, setSearchQuery] = useState('');
+
+    useEffect(() => {
+        if (location.pathname === '/movies' && localStorage.getItem('searchQuery')) {
+            setSearchQuery(localStorage.getItem('searchQuery'));
+        }
+    }, [location]);
+
+    const handleSubmit = (evt) => {
+        evt.preventDefault();
+        onSearch(searchQuery);
     };
 
     return (
@@ -20,15 +26,15 @@ function SearchForm() {
             <div className='search__wrapper'>
                 <form
                     noValidate
-                    // onSubmit={handleSubmit}
+                    onSubmit={handleSubmit}
                     className='search__form'>
                     <img className='search__icon'
                         src={icon}
                         alt='Лупа поиска'
                     />
                     <input
-                        // value={search || ''}
-                        onChange={handleChange}
+                        value={searchQuery}
+                        onChange={({ target }) => setSearchQuery(target.value)}
                         required
                         className='search__input'
                         type='text'
@@ -38,8 +44,7 @@ function SearchForm() {
                     <div className='search__line'></div>
                 </form>
                 <FilterCheckbox
-                    onChangeCheckbox={handleCheckboxChange}
-                    checkboxStatus={checkboxStatus}
+                    onShorts={onShorts}
                 />
             </div>
         </section>

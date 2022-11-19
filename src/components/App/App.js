@@ -3,9 +3,10 @@ import CurrentUserContext from '../../context/CurrentUserContext.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory, useLocation } from 'react-router-dom';
 
 import { ERROR_401, ERROR_409, ERROR_500, ERROR_EMAIL_EXISTS, ERROR_SERVER_FAILED, ERROR_REG, ERROR_LOGIN, ERROR_WRONG_EMAIL_OR_PASSWORD, PROFILE_UPDATE_INFO, ERROR_PROFILE_UPDATE_FAILED } from '../../utils/errors';
+import { SHORTMOVIE_DURATION } from '../../utils/constants';
 
 import { mainApi } from '../../api/MainApi';
 import moviesApi from '../../api/MoviesApi';
@@ -33,14 +34,15 @@ function App() {
   const [isNavigationOpened, setIsNavigationOpened] = useState(false); // навигационное меню
 
   const history = useHistory();
+  const location = useLocation();
 
-  /* БЛОК АВТОРИЗАЦИИ */
+  /* ТЕХНИЧЕСКИЙ БЛОК */
 
   // работа гамбургера
 
   function onClickHamburger() {
     setIsNavigationOpened(!isNavigationOpened);
-  }
+  };
 
   // работа нажатия escape
 
@@ -58,9 +60,11 @@ function App() {
         };
       }
     }, [dependency, callback]);
-  }
+  };
 
-  useClickEscape(onClickHamburger, isNavigationOpened)
+  useClickEscape(onClickHamburger, isNavigationOpened);
+
+  /* БЛОК АВТОРИЗАЦИИ */
 
   // проверка токена
 
@@ -82,13 +86,13 @@ function App() {
 
   useEffect(() => {
     handleCheckToken();
-  }, [loggedIn])
-
+  }, [loggedIn]);
 
   // регистрация
 
   function handleRegistration({ name, email, password }) {
-    mainApi.registration({ name, email, password })
+    return mainApi
+      .registration({ name, email, password })
       .then(() => {
         handleLogin({ email, password });
       })
@@ -103,9 +107,10 @@ function App() {
             setRegistrationError(ERROR_REG);
           }
       });
-  }
+  };
 
   // логин
+
   function handleLogin({ email, password }) {
     return mainApi
       .authorization({ email, password })
@@ -127,12 +132,13 @@ function App() {
             setLoginError(ERROR_LOGIN);
           }
       })
-  }
+  };
 
   //  редактировать данные профияля
+
   function handleUpdateUser(user) {
     const token = localStorage.getItem('jwt');
-    mainApi
+    return mainApi
       .editProfile(user, token)
       .then((updateUser) => {
         setLoggedIn(true);
@@ -148,7 +154,7 @@ function App() {
           setProfileError(ERROR_PROFILE_UPDATE_FAILED);
         }
       })
-  }
+  };
 
   // логаут
   const handleLogout = () => {
@@ -191,7 +197,8 @@ function App() {
       .catch(err => console.log(err));
   };
 
-  // выгружаем карточки из апи, !добавить проверку на поиск!
+  // выгружаем карточки из апи
+
   useEffect(() => {
     if (loggedIn) {
       moviesApi.getMovies()
@@ -226,6 +233,7 @@ function App() {
   };
 
   // удаление фильма
+
   function handleMovieDelete(id) {
     mainApi.deleteMovie(id)
       .then((data) => {
@@ -233,6 +241,130 @@ function App() {
         setSavedCards(result);
       })
       .catch(err => console.log(err));
+  };
+
+  /*   БЛОК ПОИСКА */
+
+  const [filteredInitialCards, setFilteredInitialCards] = React.useState([]);
+  const [filteredSavedCards, setFilteredSavedCards] = React.useState([]);
+  const [shortsOnly, setShortsOnly] = React.useState(false);
+  const [searchResults, setSearchResults] = React.useState(false);
+  const [savedCardsSearchResults, setSavedCardsSearchResults] = React.useState(false);
+
+  // поиск фильма 
+
+  function handleSearch(query) {
+    let result = [];
+
+    if (location.pathname === '/movies') {
+      localStorage.setItem('searchQuery', query);
+      localStorage.setItem('checked', shortsOnly);
+
+      if ((query === '' || !query) && !shortsOnly) {
+        setSearchResults(false);
+        setFilteredInitialCards([]);
+        localStorage.removeItem('searchResults');
+        createMovieCards(JSON.parse(localStorage.getItem('initialMovies')));
+      }
+
+      else if (query && !shortsOnly) {
+        result = initialCards.filter(card => card.nameRU.toLowerCase().trim().includes(query.toLowerCase().trim()));
+
+        if (result.length === 0) {
+          setSearchResults(true);
+          setFilteredInitialCards([]);
+          localStorage.setItem('searchResults', JSON.stringify(result));
+          localStorage.setItem('isSearchResults', true);
+        } else {
+          setSearchResults(true);
+          localStorage.setItem('searchResults', JSON.stringify(result));
+          localStorage.setItem('isSearchResults', true);
+          setFilteredInitialCards(result);
+        }
+      }
+
+      else if (shortsOnly && (query === '' || !query)) {
+        result = initialCards.filter(card => card.duration <= SHORTMOVIE_DURATION);
+
+        if (result.length === 0) {
+          setSearchResults(true);
+          setFilteredInitialCards([]);
+          localStorage.setItem('searchResults', JSON.stringify(result));
+          localStorage.setItem('isSearchResults', true);
+        } else {
+          setSearchResults(true);
+          localStorage.setItem('searchResults', JSON.stringify(result));
+          localStorage.setItem('isSearchResults', true);
+          setFilteredInitialCards(result);
+        }
+      }
+
+      else if (shortsOnly && query) {
+        result = initialCards.filter(card => (card.duration <= SHORTMOVIE_DURATION) && (card.nameRU.toLowerCase().trim().includes(query.toLowerCase().trim())));
+
+        if (result.length === 0) {
+          setSearchResults(true);
+          setFilteredInitialCards([]);
+          localStorage.setItem('searchResults', JSON.stringify(result));
+          localStorage.setItem('isSearchResults', true);
+        } else {
+          setSearchResults(true);
+          localStorage.setItem('searchResults', JSON.stringify(result));
+          localStorage.setItem('isSearchResults', true);
+          setFilteredInitialCards(result);
+        }
+      }
+    };
+  };
+
+  // поиск среди сохраненных фильмов
+
+  function handleSavedFilmsSearch(query) {
+    let result = [];
+
+    if (location.pathname === '/saved-movies') {
+      localStorage.setItem('searchQuery', query);
+      localStorage.setItem('checked', shortsOnly);
+
+      if ((query === '' || !query) && !shortsOnly) {
+        setSavedCardsSearchResults(false);
+        setFilteredSavedCards([]);
+        getSavedCards();
+      }
+
+      else if (query && !shortsOnly) {
+        result = savedCards.filter(card => card.nameRU.toLowerCase().trim().includes(query.toLowerCase().trim()));
+        if (result.length === 0) {
+          setSavedCardsSearchResults(true);
+          setFilteredSavedCards([]);
+        } else {
+          setSavedCardsSearchResults(true);
+          setFilteredSavedCards(result);
+        }
+      }
+
+      else if (shortsOnly && (query === '' || !query)) {
+        result = savedCards.filter(card => card.duration <= SHORTMOVIE_DURATION);
+        if (result.length === 0) {
+          setSavedCardsSearchResults(true);
+          setFilteredSavedCards([]);
+        } else {
+          setSavedCardsSearchResults(true);
+          setFilteredSavedCards(result);
+        }
+      }
+
+      else if (shortsOnly && query) {
+        result = savedCards.filter(card => (card.duration <= SHORTMOVIE_DURATION) && (card.nameRU.toLowerCase().trim().includes(query.toLowerCase().trim())));
+        if (result.length === 0) {
+          setSavedCardsSearchResults(true);
+          setFilteredSavedCards([]);
+        } else {
+          setSavedCardsSearchResults(true);
+          setFilteredSavedCards(result);
+        }
+      }
+    }
   };
 
   return (
@@ -277,6 +409,10 @@ function App() {
               onCardSave={handleMovieSave}
               isSaved={isSaved}
               initialCards={initialCards}
+              onSearch={handleSearch}
+              onShorts={setShortsOnly}
+              filteredInitialCards={filteredInitialCards}
+              isSearchResults={searchResults}
             />}
             <Footer />
           </ProtectedRoute>
@@ -290,6 +426,11 @@ function App() {
               loggedIn={loggedIn}
               savedCards={savedCards}
               onCardDelete={handleMovieDelete}
+              onSearch={handleSavedFilmsSearch}
+              onShorts={setShortsOnly}
+              filteredInitialCards={filteredInitialCards}
+              isSavedCardsSearchResults={savedCardsSearchResults}
+              filteredSavedCards={filteredSavedCards}
             />}
             <Footer />
           </ProtectedRoute>
@@ -316,7 +457,6 @@ function App() {
 
     </div>
   );
-
 }
 
 export default App;

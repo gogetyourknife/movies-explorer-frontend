@@ -3,8 +3,11 @@ import { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { LOAD_DESKTOP, LOAD_TABLET_AND_MOBILE } from '../../utils/constants';
 
-function MoviesCardList({ cards,
-    isSaved, onCardSave, onCardDelete }) {
+function MoviesCardList({
+    cards,
+    isSaved,
+    onCardSave,
+    onCardDelete }) {
 
     const [moviesShown, setMoviesShown] = useState([]);
 
@@ -26,7 +29,7 @@ function MoviesCardList({ cards,
     window.resize = function () {
         setTimeout(() => {
             showMoviesBasedOnWidth();
-        }, 700)
+        }, 600)
     };
 
     function handleLoadMoreClick() {
