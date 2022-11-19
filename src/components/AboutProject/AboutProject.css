@@ -1,0 +1,216 @@
+.aboutproject {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.aboutproject__wrapper {
+    padding: 110px 70px;
+    max-width: 1280px;
+    box-sizing: border-box;
+}
+
+.aboutproject__title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: -0.04em;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid #000000;
+    padding-bottom: 23px;
+    margin-bottom: 70px;
+}
+
+.aboutproject__list {
+    list-style: none;
+    margin: 0;
+    margin-bottom: 110px;
+    padding: 0;
+    display: flex;
+}
+
+.aboutproject__list-item {
+    margin: 0;
+    padding: 0;
+}
+
+.aboutproject__list-item_subtitle {
+    margin: 0;
+    margin-bottom: 26px;
+    padding: 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    color: #000000;
+}
+
+.aboutproject__list-item_descr {
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000;
+}
+
+.aboutproject__progress-bar {
+    display: flex;
+    width: 100%;
+}
+
+.aboutproject__backend,
+.aboutproject__frontend {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.aboutproject__backend {
+    width: 20%;
+}
+
+.aboutproject__frontend {
+    width: 80%;
+}
+
+.aboutproject__backend-time {
+    background: #000000;
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #FFFFFF;
+    padding: 9px 0;
+    margin: 0;
+}
+
+.aboutproject__frontend-time {
+    background: #F2F2F2;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #000000;
+    padding: 9px 0;
+    margin: 0;
+}
+
+.aboutproject__backend-title,
+.aboutproject__frontend-title {
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #A0A0A0;
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .aboutproject__wrapper {
+        padding: 90px 50px;
+    }
+
+    .aboutproject__list {
+        gap: 30px;
+        margin-bottom: 93px;
+    }
+
+    .aboutproject__list-item_subtitle {
+        margin-bottom: 22px;
+    }
+
+    .aboutproject__list-item_descr {
+        font-size: 12px;
+        line-height: 18px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 680px) {
+    .aboutproject__wrapper {
+        padding: 80px 30px;
+    }
+
+    .aboutproject__backend-time,
+    .aboutproject__frontend-time,
+    .aboutproject__backend-title,
+    .aboutproject__frontend-title {
+        font-size: 12.5px;
+        line-height: 12px;
+    }
+
+    .aboutproject__backend {
+        width: 30%;
+    }
+
+    .aboutproject__frontend {
+        width: 70%;
+    }
+
+    .aboutproject__list {
+        margin-bottom: 70px;
+    }
+}
+
+
+@media (max-width: 320px) {
+    .aboutproject__wrapper {
+        padding: 70px 18px;
+    }
+
+    .aboutproject__title {
+        font-size: 18px;
+        line-height: 22px;
+        padding-bottom: 28px;
+        margin-bottom: 60px;
+    }
+
+    .aboutproject__list {
+        flex-direction: column;
+        margin-bottom: 4px;
+    }
+
+    .aboutproject__list-item {
+        margin-bottom: 56px;
+    }
+
+    .aboutproject__list-item_subtitle {
+        margin-bottom: 16px;
+    }
+
+    .aboutproject__list-item_descr {
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .aboutproject__backend-time,
+    .aboutproject__frontend-time,
+    .aboutproject__backend-title,
+    .aboutproject__frontend-title {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .aboutproject__backend {
+        width: 35%;
+        gap: 10px;
+    }
+
+    .aboutproject__frontend {
+        width: 65%;
+        gap: 10px;
+    }
+}

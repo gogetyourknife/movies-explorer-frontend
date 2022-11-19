@@ -1,0 +1,142 @@
+.search {
+    max-width: 1140px;
+    width: calc(100% - 140px);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 70px 0 80px;
+    border-bottom: 1px solid #E8E8E8;
+    padding-bottom: 69px;
+}
+
+.search__wrapper {
+    width: 100%;
+    background: #F9F9F9;
+    display: flex;
+    border-radius: 9px;
+}
+
+.search__icon {
+    margin: 0;
+    padding: 0;
+    padding-right: 10px;
+    height: 22px;
+    width: 22px;
+}
+
+.search__form {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 19px 30px 19px 19px;
+    border-radius: 9px;
+}
+
+.search__line {
+    background-color: #E8E8E8;
+    padding: 0;
+    margin: 0;
+    margin-left: 30px;
+    width: 1px;
+    height: 40px;
+}
+
+.search__input {
+    width: calc(100% - 49px);
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    color: #A0A0A0;
+    padding: 0;
+    margin: 0;
+}
+
+.search__button {
+    background-image: url('../../images/search/button.svg');
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    min-height: 34px;
+    min-width: 34px;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.search__button:hover {
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .search {
+        margin: 80px 0 120px;
+        padding: 0 30px 109px 30px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 768px) {
+    .search__line {
+        margin-left: 19px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 626px) {
+    .search {
+        margin: 80px 0 80px;
+        padding: 0 10px 80px 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .search {
+        padding: 0 10px 45px 10px;
+        width: calc(100% - 20px);
+    }
+
+    .search__wrapper {
+        width: calc(100% - 20px);
+        display: flex;
+        flex-direction: column;
+        gap: 45px;
+        background: #fff;
+        align-items: center;
+    }
+
+    .filter {
+        background: #fff;
+    }
+
+    .search__icon {
+        display: none;
+    }
+
+    .search__form {
+        padding: 19px;
+        background: #F9F9F9;
+    }
+
+    .search__input {
+        font-size: 14px;
+    }
+
+    .search__line {
+        display: none;
+    }
+}
+
+@media (max-width: 320px) {
+    .search {
+        margin-bottom: 50px;
+    }
+}

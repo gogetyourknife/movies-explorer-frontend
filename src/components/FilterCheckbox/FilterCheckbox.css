@@ -1,0 +1,31 @@
+.filter {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.filter:hover {
+    opacity: 0.7;
+}
+
+.filter__title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    margin-left: 14px;
+    padding-right: 30px;
+}
+
+@media (max-width: 320px) {
+    .filter__title {
+        font-size: 11px;
+        line-height: 18px;
+        margin-left: 13px;
+        padding-right: 0px;
+    }
+}
