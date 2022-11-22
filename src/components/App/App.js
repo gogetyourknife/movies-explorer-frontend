@@ -77,10 +77,20 @@ function App() {
           if (res) {
             setLoggedIn(true)
             setCurrentUser(res)
-            history.push('/');
+            history.push(location)
           }
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err);
+          localStorage.clear();
+          localStorage.removeItem('initialMovies');
+          localStorage.removeItem('searchQuery');
+          localStorage.removeItem('searchResults');
+          localStorage.removeItem('checked');
+          localStorage.removeItem('isSearchResults');
+          history.push('/');
+          setLoggedIn(false);
+        })
     }
   }
 
@@ -159,6 +169,11 @@ function App() {
   // логаут
   const handleLogout = () => {
     localStorage.clear();
+    localStorage.removeItem('initialMovies');
+    localStorage.removeItem('searchQuery');
+    localStorage.removeItem('searchResults');
+    localStorage.removeItem('checked');
+    localStorage.removeItem('isSearchResults');
     history.push('/');
     setLoggedIn(false);
   };
@@ -204,7 +219,9 @@ function App() {
       moviesApi.getMovies()
         .then((data) => {
           localStorage.setItem('initialMovies', JSON.stringify(data));
-          createMovieCards(JSON.parse(localStorage.getItem('initialMovies')));
+          if (!JSON.parse(localStorage.getItem('searchResults'))) {
+            createMovieCards(JSON.parse(localStorage.getItem('initialMovies')));
+          }
         })
         .catch(err => console.log(err));
       getSavedCards();
@@ -323,8 +340,6 @@ function App() {
     let result = [];
 
     if (location.pathname === '/saved-movies') {
-      localStorage.setItem('searchQuery', query);
-      localStorage.setItem('checked', shortsOnly);
 
       if ((query === '' || !query) && !shortsOnly) {
         setSavedCardsSearchResults(false);

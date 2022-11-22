@@ -35,6 +35,7 @@ function Login({ onLogin, loginError }) {
                             type='email'
                             className='login__input login__input-email'
                             value={values.email || ''}
+                            pattern='^\S+@\S+\.\S+$'
                         />
                         <span className='login__error-name'>{errors.email || ''}</span>
                     </label>

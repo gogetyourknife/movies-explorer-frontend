@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import Switch from "react-switch";
 
 function FilterCheckbox({ onShorts }) {
+
     const location = useLocation();
 
     const [isChecked, setIsChecked] = useState(false);

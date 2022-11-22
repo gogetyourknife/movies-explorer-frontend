@@ -131,6 +131,18 @@
     text-align: center;
 }
 
+.profile__error-text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #FF4062;
+    margin-top: 80px;
+    grid-column: 1 / 3;
+    grid-row: 2;
+    text-align: center;
+}
+
 @media (min-width: 321px) and (max-width: 768px) {
     .profile__form {
         padding-top: 236px;
@@ -166,5 +178,9 @@
         position: relative;
         padding-top: 379px;
         padding-bottom: 40px;
+    }
+
+    .profile__error-text {
+        margin-top: 50px;
     }
 }

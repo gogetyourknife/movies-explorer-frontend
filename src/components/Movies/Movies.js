@@ -2,6 +2,7 @@ import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
+import NothingFound from '../NothingFound/NothingFound';
 
 function Movies({
     initialCards,
@@ -29,6 +30,7 @@ function Movies({
                     onCardSave={onCardSave}
                     isSaved={isSaved}
                 />}
+            {filteredInitialCards.length === 0 && isSearchResults && <NothingFound message={'Здесь ничего нет, но это пока что'} />}
             {filteredInitialCards.length === 0 && initialCards.length === 0 && !isSearchResults &&
                 <div className='movies__preloader'>
                     <Preloader />

@@ -47,6 +47,7 @@ function Register({ registerError, onRegister }) {
                             name='email'
                             type='email'
                             className='register__input register__input-email'
+                            pattern='^\S+@\S+\.\S+$'
                         />
                         <span className='register__error-name'>{errors.email || ''}</span>
                     </label>

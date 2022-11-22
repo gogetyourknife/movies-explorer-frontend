@@ -1,12 +1,14 @@
 import './Profile.css';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { ERROR_NEED_A_NEW_NAME, ERROR_NEED_A_NEW_EMAIL } from '../../utils/errors';
+import { useLocation } from 'react-router-dom';
 import useFormValidation from '../../hooks/useFormValidation';
 import CurrentUserContext from '../../context/CurrentUserContext';
 
-function Profile({ onUpdateUser, onSignOut }) {
+function Profile({ onUpdateUser, onSignOut, profileError }) {
     const { values, setValues, errors, setErrors, handleChange, isValid, setIsValid } = useFormValidation();
-
+    const [profileErrorText, setProfileErrorText] = useState('');
+    const location = useLocation();
     const currentUser = useContext(CurrentUserContext);
 
     const handleChangeName = (e) => {
@@ -32,6 +34,15 @@ function Profile({ onUpdateUser, onSignOut }) {
             handleChange(e);
         }
     };
+
+    useEffect(() => {
+        setProfileErrorText(profileError);
+    }, [profileError]);
+
+    useEffect(() => {
+        setProfileErrorText('');
+    }, [location]);
+
 
     useEffect(() => {
         setValues({
@@ -86,8 +97,10 @@ function Profile({ onUpdateUser, onSignOut }) {
                                 name='email'
                                 type='email'
                                 className='profile__input profile__input-email'
+                                pattern='^\S+@\S+\.\S+$'
                             />
                             <span className='profile__error-name'>{errors.email || ''}</span>
+                            <span className='profile__error-text'>{profileErrorText}</span>
                         </label>
                     </div>
                     <div className='profile__button-wrapper'>
@@ -97,7 +110,7 @@ function Profile({ onUpdateUser, onSignOut }) {
                             className={`
                             profile__button 
                             profile__button_change 
-                            ${isValid ? 'profile__button_disabled' : ''}`}>
+                            ${!isValid ? 'profile__button_disabled' : ''}`}>
                             Редактировать
                         </button>
                         <button
