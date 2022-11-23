@@ -1,12 +1,15 @@
 import './MoviesCard.css';
-import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-function MoviesCard({ card }) {
+function MoviesCard({ card, isSaved, onCardSave, onCardDelete }) {
     const location = useLocation();
-    const [isCardSaved, setIsCardSaved] = useState(card.saved);
-    const handleOnClick = () => {
-        setIsCardSaved(!isCardSaved);
+
+    function handleSaveClick() {
+        onCardSave(card);
+    }
+
+    function handleDeleteClick() {
+        onCardDelete(card._id);
     };
 
     return (
@@ -15,23 +18,26 @@ function MoviesCard({ card }) {
                 <div className='movies__card-descr'>
                     <div className='movies__descr-wrapper'>
                         <h2 className='movies__card-title'>{card.nameRU}</h2>
-                        <span className='movies__card-time'>{card.duration}</span>
+                        <span className='movies__card-time'>{`${Math.trunc(card.duration / 60)}ч ${card.duration % 60}м`}</span>
                     </div>
                     {location.pathname === '/movies' && (
                         <button
                             type='button'
-                            className={`movies__card-button movies__card-button_${!isCardSaved ? 'save' : 'saved'}`}
-                            onClick={handleOnClick}
+                            className={`movies__card-button movies__card-button_${!isSaved(card) ? 'save' : 'saved'}`}
+                            onClick={handleSaveClick}
                         ></button>
                     )}
                     {location.pathname === '/saved-movies' && (
                         <button
                             type='button'
                             className={`movies__card-button movies__card-button_delete`}
+                            onClick={handleDeleteClick}
                         ></button>
                     )}
                 </div>
-                <img className='movies__card-image' src={card.image} alt={card.nameRU} />
+                <a className='movies__card-link' href={card.trailerLink} target='_blank' rel='noreferrer'>
+                    <img className='movies__card-image' src={card.image} alt={card.nameRU} />
+                </a>
             </div>
         </li>
     )

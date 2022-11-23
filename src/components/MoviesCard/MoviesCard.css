@@ -45,8 +45,9 @@
 }
 
 .movies__card-image {
-    height: 74.9%;
     width: 100%;
+    height: 203px;
+    max-width: 100%;
     object-fit: cover;
     overflow: hidden;
 }
