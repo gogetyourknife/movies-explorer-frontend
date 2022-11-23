@@ -82,15 +82,10 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
-          localStorage.clear();
-          localStorage.removeItem('initialMovies');
-          localStorage.removeItem('searchQuery');
-          localStorage.removeItem('searchResults');
-          localStorage.removeItem('checked');
-          localStorage.removeItem('isSearchResults');
-          history.push('/');
-          setLoggedIn(false);
+          handleLogout();
         })
+    } else {
+      handleLogout();
     }
   }
 
@@ -129,6 +124,8 @@ function App() {
           localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
           history.push('/movies');
+        } else {
+          handleLogout();
         }
       })
       .catch((err) => {
@@ -169,6 +166,7 @@ function App() {
   // логаут
   const handleLogout = () => {
     localStorage.clear();
+    localStorage.removeItem('jwt');
     localStorage.removeItem('initialMovies');
     localStorage.removeItem('searchQuery');
     localStorage.removeItem('searchResults');
@@ -208,6 +206,7 @@ function App() {
     mainApi.getSavedMovies()
       .then((data) => {
         setSavedCards(data.reverse());
+        localStorage.setItem('savedMovies', JSON.stringify(data));
       })
       .catch(err => console.log(err));
   };
@@ -240,7 +239,9 @@ function App() {
     if (!isCardSaved) {
       mainApi.saveMovie(card)
         .then((data) => {
-          setSavedCards([data, ...savedCards]);
+          const updateSavedMovies = [data, ...savedCards];
+          setSavedCards(updateSavedMovies);
+          localStorage.setItem('savedMovies', JSON.stringify(updateSavedMovies));
         })
         .catch(err => console.log(err));
     } else {
@@ -256,17 +257,31 @@ function App() {
       .then((data) => {
         const result = savedCards.filter(savedCard => savedCard._id !== id);
         setSavedCards(result);
+        localStorage.setItem('savedMovies', JSON.stringify(result));
       })
       .catch(err => console.log(err));
   };
 
   /*   БЛОК ПОИСКА */
 
-  const [filteredInitialCards, setFilteredInitialCards] = React.useState([]);
-  const [filteredSavedCards, setFilteredSavedCards] = React.useState([]);
-  const [shortsOnly, setShortsOnly] = React.useState(false);
-  const [searchResults, setSearchResults] = React.useState(false);
-  const [savedCardsSearchResults, setSavedCardsSearchResults] = React.useState(false);
+  const [filteredInitialCards, setFilteredInitialCards] = useState([]);
+  const [filteredSavedCards, setFilteredSavedCards] = useState([]);
+  const [shortsOnly, setShortsOnly] = useState(false);
+  const [searchResults, setSearchResults] = useState(false);
+  const [savedCardsSearchResults, setSavedCardsSearchResults] = useState(false);
+
+  useEffect(() => {
+    const storageCards = JSON.parse(localStorage.getItem('searchResults'));
+    const isSearchResults = JSON.parse(localStorage.getItem('isSearchResults'));
+    if (loggedIn && storageCards) {
+      setSearchResults(isSearchResults);
+      setFilteredInitialCards(storageCards);
+      createMovieCards(JSON.parse(localStorage.getItem('initialMovies')));
+      setSavedCards(JSON.parse(localStorage.getItem('savedMovies')));
+      setSavedCardsSearchResults(false);
+      setFilteredSavedCards([]);
+    }
+  }, [location]);
 
   // поиск фильма 
 

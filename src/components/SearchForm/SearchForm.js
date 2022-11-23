@@ -13,6 +13,8 @@ function SearchForm({ onSearch, onShorts }) {
     useEffect(() => {
         if (location.pathname === '/movies' && localStorage.getItem('searchQuery')) {
             setSearchQuery(localStorage.getItem('searchQuery'));
+        } else {
+            setSearchQuery('');
         }
     }, [location]);
 
